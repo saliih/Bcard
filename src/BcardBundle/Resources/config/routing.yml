@@ -1,0 +1,6 @@
+bcard_homepage:
+    path:     /
+    defaults: { _controller: BcardBundle:Default:index }
+models:
+    path: /models
+    defaults: { _controller: BcardBundle:Model:index }

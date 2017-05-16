@@ -1,0 +1,68 @@
+{% extends '::base.html.twig' %}
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('assets/js/bootstrap-colorpicker.min.js') }}"></script>
+
+    {% javascripts
+    '@BcardBundle/Resources/public/js/bcard.js'
+    output='js/compiled/app.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-colorpicker.min.css') }}">
+
+    {% stylesheets
+    '@BcardBundle/Resources/public/css/costum.css'
+    filter='cssrewrite' output='css/compiled/app.css' %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+{% block body %}
+
+
+    <div class="page-title">
+        <div class="container">
+            <h2 class="text-right text-uppercase"><b style="color:#ef4477">Model 1</b></h2>
+        </div>
+    </div>
+
+    <div class="container produit-page">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="products-menu">
+                            <li><a href="#"
+                                   style="background: #ef4477;">Model 1</a></li>
+
+                    </ul>
+                </div>
+                <div class="col-md-9 produit-content">
+
+                    <div class="bcard">
+                        <svg width="642" height="416" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+                            <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit-->
+                            <g class="layer">
+                                <rect fill="#00ff00" stroke="#dd1a1a" x="93" y="66" width="173" height="115" id="svg_1"/>
+                                <rect fill="#34a4e5" stroke="#f7da00" x="299" y="113" width="173" height="115" id="svg_4" transform="rotate(46.86262130737305 385.50000000000006,170.50000000000003) "/>
+                                <path id="svg_2" d="m56,223l-23,115l136,-91l66,145l19,-191l-198,22z" stroke-width="2" stroke="#00f929" fill="#ff02dd"/>
+                                <text fill="#000000" stroke="#f7da00" stroke-width="0" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="196" y="326" id="svg_5" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve">Test Salah</text>
+                                <circle fill="#ff2600" stroke="#00ffff" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="477" cy="234" r="102.52805" id="svg_6" stroke-width="3"/>
+                                <text fill="#000000" stroke-width="0" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="264.76661" y="119.48251" id="svg_8" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve" transform="rotate(-92.27297973632812 332.2982482910156,210.08294677734375) matrix(2.2411909103393555,0,0,2.2411909103393555,-261.0767505466938,-39.718109130859375) " stroke="#00ffff">test de test de test</text>
+                            </g>
+                        </svg>
+                    </div>
+
+                <div class="row">
+                   form edition
+                </div>
+            </div>
+            </div>
+
+    </div>
+
+
+{% endblock %}

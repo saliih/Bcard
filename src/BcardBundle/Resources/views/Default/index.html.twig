@@ -1,0 +1,30 @@
+{% extends '::base.html.twig' %}
+{% block body %}
+
+
+    <div class="container">
+        <ol class="breadcrumb">
+            <li class="active">Model</li>
+        </ol>
+    </div>
+
+
+
+    <div class="container nos-produits">
+        <div class="row">
+
+                <div class="col-md-3">
+                    <div class="item">
+
+                        <a href="{{ path('models') }}">
+                            <img src="{{ asset('assetic/images/bc.jpg') }}" alt="Image">
+                            <div class="item-content " style="background: #ffdd52">test</div>
+                        </a>
+                    </div>
+                </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

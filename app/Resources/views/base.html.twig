@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <title>Yasmine Press  {% block title %}{% endblock %}</title>
+    {% block stylesheets %}
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ asset('assetic/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assetic/owl-carousel/owl.carousel.css') }}">
+    <link rel="stylesheet" href="{{ asset('assetic/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('/bundles/sonatacore/vendor/components-font-awesome/css/font-awesome.min.css') }}" />
+    {% endblock %}
+</head>
+<body>
+<header>
+    <div class="top-header container">
+        <div class="col-sm-12 col-md-12">
+            <div class="col-sm-6 col-md-6">
+                <h1 class="text-muted logo"></h1>
+            </div>
+            <div class="col-lg-offset-2 col-sm-4 col-md-4 top-link">
+                <div class="phone-number">
+                    <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
+                    <span>00 216 71 000 000</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</header>
+<div class="navbar navbar-default">
+    <div class="container">
+        <div class="row">
+            <ul class="nav navbar-nav menu col-md-9">
+                <li class="home-menu"><a href="{{ path('bcard_homepage') }}"></a></li>
+
+            </ul>
+          <!--  <div class="col-md-3">
+                <form class="searsh-form menu-form">
+                    <input type="text" name="search">
+                    <button type="submit"></button>
+                </form>
+            </div>-->
+        </div>
+    </div>
+</div>{% block body %}{% endblock %}
+<footer>
+
+
+
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                    <ul class="list-inline footer-adress">
+                        <li class="home">40 Rue du Koweit 1002 Tunis - Tunisie</li>
+                        <li class="tel">TEL: +216 71 834 334</li>
+                        <li class="mob">Mob: +216 23 200 718</li>
+                        <li class="fax">FAX: +216 71 834 103</li>
+                    </ul>
+                </div>
+                <div class="col-md-3 copyright">
+                    © 2015 | Tous droits réservés
+                </div>
+            </div>
+        </div>
+    </div>
+</footer><script src="{{ asset('assetic/js/jquery.min.js') }}"></script>
+<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+
+<script src="{{ asset('assetic/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assetic/owl-carousel/owl.carousel.min.js') }}"></script>
+<script src="{{ asset('assetic/js/script.js') }}"></script>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
