@@ -1,10 +1,8 @@
 {% extends '::base.html.twig' %}
 {% block javascripts %}
     {{ parent() }}
-
-    <script src="{{ asset('assets/js/bootstrap-colorpicker.min.js') }}"></script>
-
     {% javascripts
+    '@BcardBundle/Resources/public/js/bootstrap-colorpicker.min.js'
     '@BcardBundle/Resources/public/js/bcard.js'
     output='js/compiled/app.js' %}
     <script src="{{ asset_url }}"></script>
@@ -13,12 +11,11 @@
 {% block stylesheets %}
     {{ parent() }}
 
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-colorpicker.min.css') }}">
-
     {% stylesheets
+    '@BcardBundle/Resources/public/css/bootstrap-colorpicker.min.css'
     '@BcardBundle/Resources/public/css/costum.css'
     filter='cssrewrite' output='css/compiled/app.css' %}
-    <link rel="stylesheet" href="{{ asset_url }}" />
+    <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
 {% endblock %}
 {% block body %}
@@ -32,35 +29,39 @@
 
     <div class="container produit-page">
 
-            <div class="row">
-                <div class="col-md-3">
-                    <ul class="products-menu">
-                            <li><a href="#"
-                                   style="background: #ef4477;">Model 1</a></li>
+        <div class="row">
+            <div class="col-md-3">
+                <ul class="products-menu">
+                    <li><a href="#"
+                           style="background: #ef4477;">Model 1</a></li>
 
-                    </ul>
-                </div>
-                <div class="col-md-9 produit-content">
-
-                    <div class="bcard">
-                        <svg width="642" height="416" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
-                            <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit-->
-                            <g class="layer">
-                                <rect fill="#00ff00" stroke="#dd1a1a" x="93" y="66" width="173" height="115" id="svg_1"/>
-                                <rect fill="#34a4e5" stroke="#f7da00" x="299" y="113" width="173" height="115" id="svg_4" transform="rotate(46.86262130737305 385.50000000000006,170.50000000000003) "/>
-                                <path id="svg_2" d="m56,223l-23,115l136,-91l66,145l19,-191l-198,22z" stroke-width="2" stroke="#00f929" fill="#ff02dd"/>
-                                <text fill="#000000" stroke="#f7da00" stroke-width="0" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="196" y="326" id="svg_5" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve">Test Salah</text>
-                                <circle fill="#ff2600" stroke="#00ffff" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="477" cy="234" r="102.52805" id="svg_6" stroke-width="3"/>
-                                <text fill="#000000" stroke-width="0" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="264.76661" y="119.48251" id="svg_8" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve" transform="rotate(-92.27297973632812 332.2982482910156,210.08294677734375) matrix(2.2411909103393555,0,0,2.2411909103393555,-261.0767505466938,-39.718109130859375) " stroke="#00ffff">test de test de test</text>
-                            </g>
-                        </svg>
-                    </div>
-
-                <div class="row">
-                   form edition
-                </div>
+                </ul>
             </div>
+            <div class="col-md-6 produit-content">
+
+                <div class="bcard">
+                    <svg width="642" height="416" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit-->
+                        <g class="layer">
+                            <rect fill="#FF0000" stroke="#000000" x="238.12498" y="32.625" width="16.875"
+                                  height="136.125" id="svg_1"/>
+                            <rect id="svg_2" height="23.0625" width="167.0625" y="26.4375" x="39.56248" stroke="#000000"
+                                  fill="#d3e25f"/>
+                            <circle id="svg_3" r="35.40177" cy="102.375" cx="38.99998" stroke="#000000" fill="#60cfe0"/>
+                            <text xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24"
+                                  id="svg_4" y="182.25" x="100.87498" stroke-width="0" stroke="#000000" fill="#000000">test de text</text>
+  <text transform="rotate(90 289.32031250000006,93.65625000000003) " xml:space="preserve" text-anchor="middle"
+        font-family="serif" font-size="24" id="svg_5" y="101.8125" x="289.31248" stroke-width="0" stroke="#000000"
+        fill="#000000">Autre test</text>
+                            <image xlink:href="data:image/jpeg;base64,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"
+                                   id="svg_6" height="77.5" width="77.5" y="73.59961" x="121.01075"/>
+                        </g>
+                    </svg>
+                </div>
+
             </div>
+            <div class="col-md-3 formedition" style="display: none;" ></div>
+        </div>
 
     </div>
 

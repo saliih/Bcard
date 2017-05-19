@@ -1,0 +1,9 @@
+<div class="form-group">
+    <label>{{ title }}</label>
+    <select class="form-control " data-element="{{ key }}" data-id="{{ id }}">
+        <option value="serif" {% if value =="serif" %}selected{% endif %}>serif</option>
+        <option value="Arial" {% if value =="Arial" %}selected{% endif %}>Arial</option>
+        <option value="Comic Sans MS" {% if value =="Comic Sans MS" %}selected{% endif %}>Comic Sans MS</option>
+        <option value="Garamond" {% if value =="Garamond" %}selected{% endif %}>Garamond</option>
+    </select>
+</div>

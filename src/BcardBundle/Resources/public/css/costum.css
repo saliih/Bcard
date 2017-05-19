@@ -2,8 +2,23 @@
  * Created by sarra on 16/05/17.
  */
 .bcard{
-    width:642px;
-    height:416px;
+    width:330px;
+    height:217px;
     margin:15px auto;
     border:1px solid #efefef;
+}
+.colorpicker-2x .colorpicker-saturation {
+    width: 200px;
+    height: 200px;
+}
+
+.colorpicker-2x .colorpicker-hue,
+.colorpicker-2x .colorpicker-alpha {
+    width: 30px;
+    height: 200px;
+}
+
+.colorpicker-2x .colorpicker-color,
+.colorpicker-2x .colorpicker-color div {
+    height: 30px;
 }

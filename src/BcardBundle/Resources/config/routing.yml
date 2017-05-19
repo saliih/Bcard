@@ -4,3 +4,10 @@ bcard_homepage:
 models:
     path: /models
     defaults: { _controller: BcardBundle:Model:index }
+
+bcard_generate_form :
+    path: /generateform
+    defaults: { _controller : BcardBundle:Model:generateForm}
+upload_file :
+    path: /uploadfile
+    defaults: { _controller : BcardBundle:Model:uploadfile}
