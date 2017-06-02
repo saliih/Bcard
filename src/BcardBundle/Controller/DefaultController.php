@@ -8,6 +8,9 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('BcardBundle:Default:index.html.twig');
+
+        $templates = $this->getDoctrine()->getRepository('BcardBundle:Template')->findAll();
+
+        return $this->render('BcardBundle:Default:index.html.twig',array('templates'=>$templates));
     }
 }

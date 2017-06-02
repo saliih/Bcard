@@ -1,4 +1,5 @@
 {% extends '::base.html.twig' %}
+{% form_theme form '::form_table_layout.html.twig' %}
 {% block body %}
 
 
@@ -12,17 +13,17 @@
 
     <div class="container nos-produits">
         <div class="row">
-
+{% for item in templates %}
                 <div class="col-md-3">
                     <div class="item">
 
-                        <a href="{{ path('models') }}">
-                            <img src="{{ asset('assetic/images/bc.jpg') }}" alt="Image">
-                            <div class="item-content " style="background: #ffdd52">test</div>
+                        <a href="{{ path('models',{id:item.id}) }}">
+                            <img src="{{ asset('uploads/'~item.picture) }}" alt="Image">
+                            <div class="item-content " style="background: #ffdd52">{{ item.name }}</div>
                         </a>
                     </div>
                 </div>
-
+{% endfor %}
         </div>
 
     </div>

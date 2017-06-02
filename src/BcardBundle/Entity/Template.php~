@@ -1,0 +1,114 @@
+<?php
+
+namespace BcardBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+
+/**
+ * Template
+ *
+ * @ORM\Table(name="template")
+ * @ORM\Entity(repositoryClass="BcardBundle\Repository\TemplateRepository")
+ */
+class Template
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    private $name;
+    /**
+     * @Assert\File(maxSize="20M")
+     */
+    private $uploaded_file;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="picture", type="string", length=255)
+     */
+    private $picture;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="recto", type="blob", nullable=true)
+     */
+    private $recto;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="verso", type="blob", nullable=true)
+     */
+    private $verso;
+
+    public function upload($target_path)
+    {
+        if (null === $this->getUploadedFile()) {
+            return;
+        }
+        $fs = new Filesystem();
+        if (!$fs->exists($target_path)) {
+            $fs->mkdir($target_path, 0777);
+        }
+        $suffix = "";
+        while (true) {
+            $target_filename = pathinfo($this->getUploadedFile()->getClientOriginalName(), PATHINFO_FILENAME) . $suffix . "." . $this->getUploadedFile()->getClientOriginalExtension();
+            if (!file_exists($target_path . "/" . $target_filename)) {
+                break;
+            }
+            $suffix += 1;
+        }
+        $this->getUploadedFile()->move(
+            $target_path,
+            $target_filename
+        );
+        $this->setPicture($target_filename);
+    }
+    /**
+     * Set file
+     *
+     * @param string $file
+     *
+     * @return Files
+     */
+    public function setUploadedFile($file)
+    {
+        $this->uploaded_file = $file;
+        return $this;
+    }
+
+    /**
+     * Get file
+     *
+     * @return string
+     */
+    public function getUploadedFile()
+    {
+        return $this->uploaded_file;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+}

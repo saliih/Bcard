@@ -2,6 +2,33 @@
  * Created by sarra on 16/05/17.
  */
 $(document).ready(function () {
+    $('#formimport').on('submit',function (event) {
+        var data = $(this).serializeArray();
+        if($('.recto').length){
+            data.push({recto:$('.recto').html()});
+        }
+        if($('.verso').length){
+            data.push({recto:$('.verso').html()});
+        }
+        debugger;
+
+        return false;
+    });
+    $('g>image').resizable();
+    $('g>image')
+        .draggable({
+            containment: "g",
+            scroll: true,
+            cursor: "move",
+
+        })
+        .bind('drag', function(event, ui){
+            // update coordinates manually, since top/left style props don't work on SVG
+           // debugger;
+            event.target.setAttribute('x', event.offsetX);
+            event.target.setAttribute('y', event.offsetY);
+        });
+
     $('.bcard svg g').children().on('click', function (event) {
         $('.formedition').css('display', 'block');
         var obj = {};

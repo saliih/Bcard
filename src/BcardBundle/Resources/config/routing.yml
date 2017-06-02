@@ -2,7 +2,7 @@ bcard_homepage:
     path:     /
     defaults: { _controller: BcardBundle:Default:index }
 models:
-    path: /models
+    path: /models/{id}
     defaults: { _controller: BcardBundle:Model:index }
 
 bcard_generate_form :
@@ -11,3 +11,6 @@ bcard_generate_form :
 upload_file :
     path: /uploadfile
     defaults: { _controller : BcardBundle:Model:uploadfile}
+submitinvoice :
+    path: /submitinvoice
+    defaults: { _controller : BcardBundle:Model:submitInvoice}

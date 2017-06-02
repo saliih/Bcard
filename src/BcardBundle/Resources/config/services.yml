@@ -2,3 +2,8 @@ services:
 #    bcard.example:
 #        class: BcardBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+    admin.template:
+        class: BcardBundle\Admin\TemplateAdmin
+        arguments: [~, BcardBundle\Entity\Template, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Template" ,label: 'Template', icon:'<i class="fa fa-envelope"></i>' }
