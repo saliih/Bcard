@@ -14,6 +14,6 @@ upload_file :
 submitinvoice :
     path: /submitinvoice
     defaults: { _controller : BcardBundle:Model:submitInvoice}
-submitinvoice :
-    path: /admin/generatePdf
+generatepdf :
+    path: /admin/generatePdf/{id}
     defaults: { _controller : BcardBundle:Admin:generatePdf}

@@ -46,9 +46,9 @@ class ModelController extends Controller
             case "rect":
                 $extra = array(
                     "fill" => $request->request->get('fill'),
-                    "stroke" => $request->request->get('stroke'),
-                    "x" => $request->request->get('x'),
-                    "y" => $request->request->get('y'),
+                    //"stroke" => $request->request->get('stroke'),
+                    //"x" => $request->request->get('x'),
+                    //"y" => $request->request->get('y'),
                     //"width" =>$request->request->get('width'),
                     //"height" =>$request->request->get('height'),
                 );
@@ -60,7 +60,7 @@ class ModelController extends Controller
                 $extra = array(
                     "text" => $request->request->get('text'),
                     "fill" => $request->request->get('fill'),
-                    "stroke" => $request->request->get('stroke'),
+                   // "stroke" => $request->request->get('stroke'),
                     "fontfamily" => $request->request->get('fontfamily'),
                     "fontsize" => $request->request->get('fontsize'),
                 );
@@ -68,15 +68,15 @@ class ModelController extends Controller
             case "circle":
                 $extra = array(
                     "fill" => $request->request->get('fill'),
-                    "stroke" => $request->request->get('stroke'),
-                    "strokewidth" => $request->request->get('strokewidth'),
+                    //"stroke" => $request->request->get('stroke'),
+                    //"strokewidth" => $request->request->get('strokewidth'),
                 );
                 break;
             case "path":
                 $extra = array(
                     "fill" => $request->request->get('fill'),
-                    "stroke" => $request->request->get('stroke'),
-                    "strokewidth" => $request->request->get('strokewidth'),
+                   // "stroke" => $request->request->get('stroke'),
+                   // "strokewidth" => $request->request->get('strokewidth'),
                 );
                 break;
         }

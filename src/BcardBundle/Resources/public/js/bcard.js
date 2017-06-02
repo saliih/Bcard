@@ -4,7 +4,6 @@
 $(document).ready(function () {
     $('#formimport').on('submit',function (event) {
         var data = $(this).serializeArray();
-        debugger;
         if($('.recto').length){
             data.push({name:'recto',value:$('.recto').html()});
         }
