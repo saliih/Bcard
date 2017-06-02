@@ -27,7 +27,15 @@
         "symfony/monolog-bundle": "^3.0.2",
         "symfony/swiftmailer-bundle": "~2.3,>=2.3.10",
         "symfony/symfony": "2.8.*",
-        "twig/twig": "^1.0||^2.0"
+        "twig/twig": "^1.0||^2.0",
+        "sonata-project/easy-extends-bundle": "~2.1",
+        "sonata-project/intl-bundle": "^2.2.4",
+        "sonata-project/admin-bundle": "3.10.*",
+        "sonata-project/block-bundle": "^3.2",
+        "sonata-project/user-bundle": "3.x",
+        "sonata-project/doctrine-orm-admin-bundle": "*",
+        "symfony/assetic-bundle": "~2.3",
+        "whiteoctober/tcpdf-bundle": "1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",

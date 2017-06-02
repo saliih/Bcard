@@ -4,13 +4,17 @@
 $(document).ready(function () {
     $('#formimport').on('submit',function (event) {
         var data = $(this).serializeArray();
+        debugger;
         if($('.recto').length){
-            data.push({recto:$('.recto').html()});
+            data.push({name:'recto',value:$('.recto').html()});
         }
         if($('.verso').length){
-            data.push({recto:$('.verso').html()});
+            data.push({name:'verso',value:$('.verso').html()});
         }
-        debugger;
+        getRequest(Routing.generate('submitinvoice'), data, function (response) {
+            $('#fiche_Validation').modal('hide');
+            $('#validation').modal();
+        });
 
         return false;
     });

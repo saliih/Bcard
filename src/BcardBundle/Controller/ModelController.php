@@ -22,7 +22,19 @@ class ModelController extends Controller
     }
 
     public function submitInvoiceAction(Request $request){
-        echo "<pre>";print_r($request->request);echo "</pre>";exit;
+        $em = $this->getDoctrine()->getManager();
+        $invoice = new Invoice();
+        $simpleData = $request->request->get('bcardbundle_invoice');
+        $invoice->setEmail($simpleData['email']);
+        $invoice->setName($simpleData['name']);
+        $invoice->setAdresse($simpleData['adresse']);
+        $invoice->setTel($simpleData['tel']);
+        $invoice->setRecto($request->request->get('recto'));
+        if(strlen($request->request->get('verso'))>0){
+            $invoice->setVerso($request->request->get('verso'));
+        }
+        $em->persist($invoice);
+        $em->flush();
         return new JsonResponse(array('success'=>true));
     }
 
