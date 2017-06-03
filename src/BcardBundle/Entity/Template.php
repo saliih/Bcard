@@ -31,53 +31,128 @@ class Template
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
+
+
     /**
      * @Assert\File(maxSize="20M")
      */
-    private $uploaded_file;
+    private $uploaded_file_recto;
     /**
      * @var string
      *
-     * @ORM\Column(name="picture", type="string", length=255)
-     */
-    private $picture;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="recto", type="text", length=10000, nullable=true)
+     * @ORM\Column(name="recto", type="string", length=255, nullable=true)
      */
     private $recto;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="verso", type="text", length=10000, nullable=true)
+     * @ORM\Column(name="verso", type="string", length=255, nullable=true)
      */
     private $verso;
 
-    public function upload($target_path)
+    /**
+     * @Assert\File(maxSize="20M")
+     */
+    private $uploaded_file_verso;
+
+    public function upload($target_path,$type)
     {
-        if (null === $this->getUploadedFile()) {
-            return;
+
+        Switch($type){
+            case 'recto':
+                if (null === $this->getUploadedFileRecto()) {
+                    return;
+                }                break;
+            case "verso":
+                if (null === $this->getUploadedFileVerso()) {
+                    return;
+                }                break;
+           
         }
+
         $fs = new Filesystem();
         if (!$fs->exists($target_path)) {
             $fs->mkdir($target_path, 0777);
         }
         $suffix = "";
-        while (true) {
-            $target_filename = pathinfo($this->getUploadedFile()->getClientOriginalName(), PATHINFO_FILENAME) . $suffix . "." . $this->getUploadedFile()->getClientOriginalExtension();
-            if (!file_exists($target_path . "/" . $target_filename)) {
+
+        Switch($type){
+            case 'recto':
+                while (true) {
+                    $target_filename = pathinfo($this->getUploadedFileRecto()->getClientOriginalName(), PATHINFO_FILENAME) . $suffix . "." . $this->getUploadedFileRecto()->getClientOriginalExtension();
+                    if (!file_exists($target_path . "/" . $target_filename)) {
+                        break;
+                    }
+                    $suffix += 1;
+                }
+                $this->getUploadedFileRecto()->move(
+                    $target_path,
+                    $target_filename
+                );
+                $this->setRecto($target_filename);
                 break;
-            }
-            $suffix += 1;
+            case "verso":
+                while (true) {
+                    $target_filename = pathinfo($this->getUploadedFileVerso()->getClientOriginalName(), PATHINFO_FILENAME) . $suffix . "." . $this->getUploadedFileVerso()->getClientOriginalExtension();
+                    if (!file_exists($target_path . "/" . $target_filename)) {
+                        break;
+                    }
+                    $suffix += 1;
+                }
+                $this->getUploadedFileVerso()->move(
+                    $target_path,
+                    $target_filename
+                );
+                $this->setVerso($target_filename);
+                break;
+
         }
-        $this->getUploadedFile()->move(
-            $target_path,
-            $target_filename
-        );
-        $this->setPicture($target_filename);
+
+    }
+    /**
+     * Set file
+     *
+     * @param string $file
+     *
+     * @return Files
+     */
+    public function setUploadedFileRecto($file)
+    {
+        $this->uploaded_file_recto = $file;
+        return $this;
+    }
+
+    /**
+     * Get file
+     *
+     * @return string
+     */
+    public function getUploadedFileRecto()
+    {
+        return $this->uploaded_file_recto;
+    }
+    /**
+     * Set file
+     *
+     * @param string $file
+     *
+     * @return Files
+     */
+    public function setUploadedFileVerso($file)
+    {
+        $this->uploaded_file_verso = $file;
+        return $this;
+    }
+
+    /**
+     * Get file
+     *
+     * @return string
+     */
+    public function getUploadedFileVerso()
+    {
+        return $this->uploaded_file_verso;
     }
     /**
      * Set file
@@ -116,6 +191,7 @@ class Template
     {
         return $this->id;
     }
+
 
     /**
      * Set name

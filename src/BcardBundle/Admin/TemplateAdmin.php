@@ -47,12 +47,12 @@ class TemplateAdmin extends Admin
         $fileFieldOptions = array('required' => false);
         $fileFieldOptions['data_class'] = null;
         $fileFieldOptions['required'] = false;
-        $fileFieldOptions['label'] = "Attachez un fichier";
-        $formMapper->add('uploaded_file', FileType::class, $fileFieldOptions);
-        $formMapper->add('picture', HiddenType::class, array())
-            ->add('recto','textarea')
-            ->add('verso','textarea')
-        ;
+        //$fileFieldOptions['label'] = "Attachez un fichier";
+
+        $formMapper->add('uploaded_file_recto', FileType::class, $fileFieldOptions);
+        $formMapper->add('recto', HiddenType::class, array());
+        $formMapper->add('uploaded_file_verso', FileType::class, $fileFieldOptions);
+        $formMapper->add('verso', HiddenType::class, array());
     }
 
     public function prePersist($object)
@@ -69,8 +69,11 @@ class TemplateAdmin extends Admin
     {
         $uploadpath = $this->getConfigurationPool()->getContainer()->getParameter('kernel.root_dir')
             . '/../web/uploads/' ;
-        if ($object->getUploadedFile() instanceof UploadedFile) {
-            $object->upload($uploadpath  );
+        if ($object->getUploadedFileRecto() instanceof UploadedFile) {
+            $object->upload($uploadpath, "recto" );
+        }
+        if ($object->getUploadedFileVerso() instanceof UploadedFile) {
+            $object->upload($uploadpath, "verso" );
         }
     }
 }

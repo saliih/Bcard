@@ -276,4 +276,3 @@ class Invoice
         $this->email = $email;
     }
 }
-
