@@ -28,6 +28,12 @@ class Template
     /**
      * @var string
      *
+     * @ORM\Column(name="picture", type="string", length=255, nullable=true)
+     */
+    private $picture;
+    /**
+     * @var string
+     *
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
@@ -68,7 +74,7 @@ class Template
                 if (null === $this->getUploadedFileVerso()) {
                     return;
                 }                break;
-           
+
         }
 
         $fs = new Filesystem();
@@ -91,6 +97,16 @@ class Template
                     $target_filename
                 );
                 $this->setRecto($target_filename);
+                /*$image = new \Imagick();
+                $image->readImageBlob(file_get_contents($target_path.$target_filename));
+                $image->setImageFormat("png24");
+                $image->resizeImage(1024, 768, \Imagick::FILTER_LANCZOS, 1);
+                $target_filename = substr($target_filename,0-3)."png";
+                $image->writeImage($target_path.$target_filename);
+
+                $this->setPicture($target_filename);*/
+
+
                 break;
             case "verso":
                 while (true) {

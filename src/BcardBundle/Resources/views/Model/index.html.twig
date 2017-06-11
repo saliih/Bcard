@@ -33,9 +33,9 @@
 
         <div class="row">
             <div class="col-md-8">
-                <div class="col-md-6">
+                <div class="col-md-6 produit-content">
                     <div class="bcard recto">
-                        {{ template.recto|replaceIds('recto')|raw }}
+                        {{ template.recto | convertSVG | raw }}
                     </div>
 
                 </div>
@@ -43,7 +43,7 @@
                 <div class="col-md-6 produit-content">
 
                     <div class="bcard verso">
-                        {{ template.verso|replaceIds('verso')|raw }}
+                        {{ template.verso | convertSVG | raw  }}
 
                     </div>
 

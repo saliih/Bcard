@@ -3,6 +3,7 @@
 namespace BcardBundle\Admin;
 
 use BcardBundle\Admin\BaseAdmin as Admin;
+use BcardBundle\Entity\Template;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -68,12 +69,14 @@ class TemplateAdmin extends Admin
     private function manageFileUpload($object)
     {
         $uploadpath = $this->getConfigurationPool()->getContainer()->getParameter('kernel.root_dir')
-            . '/../web/uploads/' ;
+            . '/../web/uploads/svg/' ;
         if ($object->getUploadedFileRecto() instanceof UploadedFile) {
             $object->upload($uploadpath, "recto" );
         }
         if ($object->getUploadedFileVerso() instanceof UploadedFile) {
             $object->upload($uploadpath, "verso" );
         }
+
+
     }
 }

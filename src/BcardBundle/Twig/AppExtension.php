@@ -23,13 +23,15 @@ class AppExtension extends \Twig_Extension
     public function getFilters()
     {
         return array(
-            'replaceIds' => new \Twig_Filter_Method($this, 'replaceIds'),
+            'convertSVG' => new \Twig_Filter_Method($this, 'convertSVG'),
         );
     }
-    public function replaceIds($text,$type){
-        $text = str_replace('id="','id="'.$type.'_',$text);
-        $text = str_replace("id='",'id="'.$type.'_',$text);
-        return $text;
+
+    public function convertSVG($file)
+    {
+        $path = $this->container->getParameter('kernel.root_dir') . '/../web/uploads/svg/' . $file;
+        return file_get_contents($path);
+
     }
 
     public function getName()

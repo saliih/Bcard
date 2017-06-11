@@ -1,6 +1,6 @@
 <div class="form-group">
     <label>{{ title }}</label>
-    <select class="form-control" data-element="{{ key }}" data-id="{{ id }}">
+    <select class="form-control" data-element="{{ key }}" >
         {% for item in 9..48 %}
         <option value="{{ item }}" {% if value ==item %}selected{% endif %}>{{ item }}</option>
         {% endfor %}

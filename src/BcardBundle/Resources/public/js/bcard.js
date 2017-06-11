@@ -2,13 +2,18 @@
  * Created by sarra on 16/05/17.
  */
 $(document).ready(function () {
-    $('#formimport').on('submit',function (event) {
+    $.each($('svg'), function (index, svg) {
+        $(svg).parent().width($(svg).width());
+        $(svg).parent().height($(svg).height());
+        $(svg).parent().css({margin: '0 auto'});
+    });
+    $('#formimport').on('submit', function (event) {
         var data = $(this).serializeArray();
-        if($('.recto').length){
-            data.push({name:'recto',value:$('.recto').html()});
+        if ($('.recto').length) {
+            data.push({name: 'recto', value: $('.recto').html()});
         }
-        if($('.verso').length){
-            data.push({name:'verso',value:$('.verso').html()});
+        if ($('.verso').length) {
+            data.push({name: 'verso', value: $('.verso').html()});
         }
         getRequest(Routing.generate('submitinvoice'), data, function (response) {
             $('#fiche_Validation').modal('hide');
@@ -17,22 +22,22 @@ $(document).ready(function () {
 
         return false;
     });
-    $('g>image').resizable();
-    $('g>image')
-        .draggable({
-            containment: "g",
-            scroll: true,
-            cursor: "move",
+    /* $('g>image').resizable();
+     $('g>image')
+     .draggable({
+     containment: "g",
+     scroll: true,
+     cursor: "move",
 
-        })
-        .bind('drag', function(event, ui){
-            // update coordinates manually, since top/left style props don't work on SVG
-           // debugger;
-            event.target.setAttribute('x', event.offsetX);
-            event.target.setAttribute('y', event.offsetY);
-        });
-
-    $('.bcard svg g').children().on('click', function (event) {
+     })
+     .bind('drag', function(event, ui){
+     // update coordinates manually, since top/left style props don't work on SVG
+     // debugger;
+     event.target.setAttribute('x', event.offsetX);
+     event.target.setAttribute('y', event.offsetY);
+     });
+     */
+    $('rect, image, text, circle, path').off().on('click', function (event) {
         $('.formedition').css('display', 'block');
         var obj = {};
         if ($(this).is('rect')) {
@@ -79,14 +84,10 @@ $(document).ready(function () {
         } else if ($(this).is('path')) {
             obj = {
                 type: 'path',
-                id: $(this).attr('id'),
-                fill: $(this).attr('fill'),
-                stroke: $(this).attr('stroke'),
-                strokewidth: $(this).attr('stroke-width'),
                 fill: $(this).attr('fill'),
             }
         }
-        window.element = obj;
+        window.element = $(this);
 
         getRequest(Routing.generate('bcard_generate_form'), obj, function (html) {
             $('.formedition').html('').html(html);
@@ -112,19 +113,19 @@ $(document).ready(function () {
                 .not('.colorpicker')
                 .not('input[type=file]')
                 .on('change', function (event) {
-                changeBlock(event.currentTarget);
+                    changeBlock(event.currentTarget);
+                });
+            $('.formedition input[type=file]').on('change', function (event) {
+                $(event.currentTarget).closest('form').submit();
             });
-            $('.formedition input[type=file]').on('change',function (event) {
-               $(event.currentTarget).closest('form').submit();
-            });
-            $('#formlogo').on('submit',function (event) {
+            $('#formlogo').on('submit', function (event) {
                 var data = new FormData(this);
                 var url = $(this).attr('action');
 
                 getRequest(url, data, function (result) {
                     var id = $("input[type=file]").attr("data-id");
-                    $('#'+id).attr('xlink:href',result);
-                }, {type:"POST"}, {
+                    $('#' + id).attr('xlink:href', result);
+                }, {type: "POST"}, {
                     cache: false,
                     dataType: 'html',
                     mimeType: "multipart/form-data",
@@ -143,9 +144,10 @@ function changeBlock(input) {
     if (attr == "fontfamily")attr = "font-family";
     if (attr == "fontsize")attr = "font-size";
     if (attr == "text") {
-        $("#" + id).text(val);
-    } else
-        $("#" + id).attr(attr, val);
+        window.element.text(val);
+    } else {
+        window.element.attr(attr, val);
+    }
 }
 
 function getRequest(url, _data, success_function, params, extraParams) {

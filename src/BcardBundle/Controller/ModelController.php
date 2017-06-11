@@ -41,7 +41,7 @@ class ModelController extends Controller
     public function generateFormAction(Request $request)
     {
         $type = $request->request->get('type');
-        $data['id'] = $request->request->get('id');
+        $extra = array();
         switch ($type) {
             case "rect":
                 $extra = array(
@@ -81,8 +81,7 @@ class ModelController extends Controller
                 break;
         }
         $html = "";
-        $data = array_merge($data, $extra);
-        foreach ($data as $key => $value) {
+        foreach ($extra as $key => $value) {
             if ($key == 'id') continue;
             else if ($key == "stroke") {
                 $html .= $this->renderView("BcardBundle:Fields:color.html.twig",
@@ -90,7 +89,6 @@ class ModelController extends Controller
                         'title' => "Couleur de trait",
                         'value' => $value,
                         'key' => $key,
-                        'id' => $data['id']
                     ));
             } else if ($key == "fill") {
                 $html .= $this->renderView("BcardBundle:Fields:color.html.twig",
@@ -98,7 +96,6 @@ class ModelController extends Controller
                         'title' => "Couleur ",
                         'value' => $value,
                         'key' => $key,
-                        'id' => $data['id']
                     ));
             } else if ($key == "fontfamily") {
                 $html .= $this->renderView("BcardBundle:Fields:fontfamily.html.twig",
@@ -106,7 +103,6 @@ class ModelController extends Controller
                         'title' => "Police ",
                         'value' => $value,
                         'key' => $key,
-                        'id' => $data['id']
                     ));
             } else if ($key == "fontsize") {
                 $html .= $this->renderView("BcardBundle:Fields:fontsize.html.twig",
@@ -114,7 +110,6 @@ class ModelController extends Controller
                         'title' => "Taille de police ",
                         'value' => $value,
                         'key' => $key,
-                        'id' => $data['id']
                     ));
             } else if ($key == "text") {
                 $html .= $this->renderView("BcardBundle:Fields:text.html.twig",
@@ -122,7 +117,6 @@ class ModelController extends Controller
                         'title' => "Text ",
                         'value' => $value,
                         'key' => $key,
-                        'id' => $data['id']
                     ));
             } else if (in_array($key, array("x", "y"))) {
                 $html .= $this->renderView("BcardBundle:Fields:number.html.twig",
@@ -130,14 +124,12 @@ class ModelController extends Controller
                         'title' => "Text ",
                         'value' => $value,
                         'key' => $key,
-                        'id' => $data['id']
                     ));
             } else if ($key == "file") {
                 $html .= $this->renderView("BcardBundle:Fields:file.html.twig",
                     array(
                         'title' => "Logo",
                         'key' => $key,
-                        'id' => $data['id']
                     ));
             }
         }
