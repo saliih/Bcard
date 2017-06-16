@@ -40,7 +40,7 @@ $(document).ready(function () {
      */
     $('rect, image, text, circle, path').off().on('click', function (event) {
         $('.formedition').css('display', 'block');
-        var obj = {};
+        var obj = {};debugger;
         if ($(this).is('rect')) {
             obj = {
                 type: 'rect',

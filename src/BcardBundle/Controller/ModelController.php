@@ -29,9 +29,13 @@ class ModelController extends Controller
         $invoice->setName($simpleData['name']);
         $invoice->setAdresse($simpleData['adresse']);
         $invoice->setTel($simpleData['tel']);
-        $invoice->setRecto($request->request->get('recto'));
+        $recto = time()."_recto.svg";
+        file_put_contents($this->get('kernel')->getRootDir() . '/../web/uploads/'.$recto,$request->request->get('recto'));
+        $invoice->setRecto($recto);
         if(strlen($request->request->get('verso'))>0){
-            $invoice->setVerso($request->request->get('verso'));
+            $verso = time()."_verso.svg";
+            file_put_contents($this->get('kernel')->getRootDir() . '/../web/uploads/'.$verso,$request->request->get('recto'));
+            $invoice->setVerso($verso);
         }
         $em->persist($invoice);
         $em->flush();

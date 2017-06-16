@@ -47,3 +47,9 @@
 */Entity/*~
 
 *.php~
+web/js/compiled/
+.idea/
+bin/
+tests/
+web/css/compiled/
+web/js/compiled/

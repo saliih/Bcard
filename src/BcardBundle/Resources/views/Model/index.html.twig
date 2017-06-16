@@ -4,8 +4,8 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     {% javascripts
     'assetic/js/svg/jquery.svg.js'
-    '@BcardBundle/Resources/public/js/bootstrap-colorpicker.min.js'
-    '@BcardBundle/Resources/public/js/bcard.js'
+    'public/js/bootstrap-colorpicker.min.js'
+    'public/js/bcard.js'
     output='js/compiled/app.js' %}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
@@ -14,8 +14,8 @@
     {{ parent() }}
 
     {% stylesheets
-    '@BcardBundle/Resources/public/css/bootstrap-colorpicker.min.css'
-    '@BcardBundle/Resources/public/css/costum.css'
+    'public/css/bootstrap-colorpicker.min.css'
+    'public/css/costum.css'
     filter='cssrewrite' output='css/compiled/app.css' %}
     <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
