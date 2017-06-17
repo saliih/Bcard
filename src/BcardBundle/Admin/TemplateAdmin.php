@@ -50,6 +50,8 @@ class TemplateAdmin extends Admin
         $fileFieldOptions['required'] = false;
         //$fileFieldOptions['label'] = "Attachez un fichier";
 
+        $formMapper->add('uploaded_file', FileType::class, $fileFieldOptions);
+        $formMapper->add('picture', HiddenType::class, array());
         $formMapper->add('uploaded_file_recto', FileType::class, $fileFieldOptions);
         $formMapper->add('recto', HiddenType::class, array());
         $formMapper->add('uploaded_file_verso', FileType::class, $fileFieldOptions);
@@ -75,6 +77,11 @@ class TemplateAdmin extends Admin
         }
         if ($object->getUploadedFileVerso() instanceof UploadedFile) {
             $object->upload($uploadpath, "verso" );
+        }
+        $uploadpath = $this->getConfigurationPool()->getContainer()->getParameter('kernel.root_dir')
+            . '/../web/uploads/pict/' ;
+        if ($object->getUploadedFile() instanceof UploadedFile) {
+            $object->upload($uploadpath );
         }
 
 

@@ -25,6 +25,11 @@ class Template
      */
     private $id;
 
+
+    /**
+     * @Assert\File(maxSize="20M")
+     */
+    private $uploaded_file;
     /**
      * @var string
      *
@@ -62,7 +67,7 @@ class Template
      */
     private $uploaded_file_verso;
 
-    public function upload($target_path,$type)
+    public function upload($target_path,$type="")
     {
 
         Switch($type){
@@ -74,6 +79,10 @@ class Template
                 if (null === $this->getUploadedFileVerso()) {
                     return;
                 }                break;
+            default:
+                if (null === $this->getUploadedFile()) {
+                    return;
+                }
 
         }
 
@@ -121,6 +130,20 @@ class Template
                     $target_filename
                 );
                 $this->setVerso($target_filename);
+                break;
+            default:
+                while (true) {
+                    $target_filename = pathinfo($this->getUploadedFile()->getClientOriginalName(), PATHINFO_FILENAME) . $suffix . "." . $this->getUploadedFile()->getClientOriginalExtension();
+                    if (!file_exists($target_path . "/" . $target_filename)) {
+                        break;
+                    }
+                    $suffix += 1;
+                }
+                $this->getUploadedFile()->move(
+                    $target_path,
+                    $target_filename
+                );
+                $this->setPicture($target_filename);
                 break;
 
         }
