@@ -9,7 +9,7 @@ class AdminController extends Controller
     public function generatePdfAction($id)
     {
         $invoice = $this->getDoctrine()->getRepository('BcardBundle:Invoice')->find($id);
-        echo $recto = $invoice->getRecto();exit;
+         $recto = $invoice->getRecto();
         $verso = $invoice->getVerso();
         $path = $this->get('kernel')->getRootDir() . '/../web/uploads/';
 
