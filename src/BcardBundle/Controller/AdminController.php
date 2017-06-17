@@ -9,7 +9,7 @@ class AdminController extends Controller
     public function generatePdfAction($id)
     {
         $invoice = $this->getDoctrine()->getRepository('BcardBundle:Invoice')->find($id);
-        $recto = $invoice->getRecto();
+        echo $recto = $invoice->getRecto();exit;
         $verso = $invoice->getVerso();
         $path = $this->get('kernel')->getRootDir() . '/../web/uploads/';
 
@@ -26,10 +26,10 @@ class AdminController extends Controller
             $height =(float) $arrayheight[1];
             $unit = "pt";
         }
-        echo "<pre>";
+        /*echo "<pre>";
         print_r(array($height,$width,$unit));
         exit;
-
+*/
         $pdf = $this->get("white_october.tcpdf")->create('vertical', $unit, array($width, $height), true, 'UTF-8', false);
 
 

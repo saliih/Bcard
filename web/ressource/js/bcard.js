@@ -9,7 +9,7 @@ $(document).ready(function () {
     });
     $('#formimport').on('submit', function (event) {
         var data = $(this).serializeArray();
-        debugger;
+
         if ($('.recto').length) {
             data.push({name: 'recto', value: $('.recto').html()});
         }
@@ -33,14 +33,14 @@ $(document).ready(function () {
      })
      .bind('drag', function(event, ui){
      // update coordinates manually, since top/left style props don't work on SVG
-     // debugger;
+     //
      event.target.setAttribute('x', event.offsetX);
      event.target.setAttribute('y', event.offsetY);
      });
      */
     $('rect, image, text, circle, path').off().on('click', function (event) {
         $('.formedition').css('display', 'block');
-        var obj = {};debugger;
+        var obj = {};
         if ($(this).is('rect')) {
             obj = {
                 type: 'rect',
