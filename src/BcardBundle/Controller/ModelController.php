@@ -20,6 +20,20 @@ class ModelController extends Controller
             "form" => $form->createView()
         ));
     }
+    public function uploadlogoAction(Request $request){
+        $file = $request->files->get('upload-file-selector');
+        $time = time() + rand(1, 61561) . $file->getClientOriginalExtension();
+        $file->move(
+            $this->getParameter('kernel.root_dir') . "/../web/uploads/",
+            $time
+        );
+        $filename = $this->getParameter('kernel.root_dir') . "/../web/uploads/" . $time;
+        $type = pathinfo($filename, PATHINFO_EXTENSION);
+        $data = file_get_contents($filename);
+        return new Response(base64_encode($data));
+        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+        return new Response($base64);
+    }
 
     public function submitInvoiceAction(Request $request){
         $em = $this->getDoctrine()->getManager();

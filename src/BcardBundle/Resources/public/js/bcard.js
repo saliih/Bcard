@@ -2,6 +2,27 @@
  * Created by sarra on 16/05/17.
  */
 $(document).ready(function () {
+    $('#upload-file-selector').on('change',function (event) {
+        $('#uploadfile').submit();
+    });
+    $('#uploadfile').on('submit',function () {
+        var data = new FormData(this);
+        var url = $(this).attr('action');
+
+        getRequest(Routing.generate('upload_logo'), data, function (result) {
+           debugger;
+        }, {type: "POST"}, {
+            cache: false,
+            dataType: 'html',
+            mimeType: "multipart/form-data",
+            contentType: false,
+            processData: false
+        });
+        return false;
+    });
+
+
+
     $.each($('svg'), function (index, svg) {
         $(svg).parent().width($(svg).width());
         $(svg).parent().height($(svg).height());

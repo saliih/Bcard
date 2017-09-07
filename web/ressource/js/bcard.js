@@ -2,6 +2,35 @@
  * Created by sarra on 16/05/17.
  */
 $(document).ready(function () {
+    $('#upload-file-selector').on('change',function (event) {
+        $('#uploadfile').submit();
+    });
+    $('#uploadfile').on('submit',function () {
+        var data = new FormData(this);
+        var url = $(this).attr('action');
+
+        getRequest(Routing.generate('upload_logo'), data, function (result) {
+
+            var html = '<image x="1" y="13.5" width="118" height="114.56311" id="recto_svg_13" xlink:href="'+result+'" style="position: relative;">'
+            $('.recto svg').
+            /*var img = "image"+Math.floor((Math.random() * 1000000) + 1).toString();
+            var html = '<i:pgf id="'+img+'">'+result+'</i:pgf>'
+            $('.recto svg').append(html);
+            var html2 = '<foreignObject requiredExtensions="&amp;ns_ai;" x="0" y="0" width="1" height="1">'
+                    +'<i:pgfref xlink:href="#'+img+'">'
+                    +'</i:pgfref></foreignObject>';
+            $('.recto svg').prepend(html2);*/
+        }, {type: "POST"}, {
+            cache: false,
+            dataType: 'html',
+            mimeType: "multipart/form-data",
+            contentType: false,
+            processData: false
+        });
+        return false;
+    });
+
+
     $.each($('svg'), function (index, svg) {
         $(svg).parent().width($(svg).width());
         $(svg).parent().height($(svg).height());
@@ -23,21 +52,21 @@ $(document).ready(function () {
 
         return false;
     });
-    /* $('g>image').resizable();
-     $('g>image')
-     .draggable({
-     containment: "g",
-     scroll: true,
-     cursor: "move",
+    $('g image').resizable();
+    $('g image')
+        .draggable({
+            containment: "g",
+            scroll: true,
+            cursor: "move",
 
-     })
-     .bind('drag', function(event, ui){
-     // update coordinates manually, since top/left style props don't work on SVG
-     //
-     event.target.setAttribute('x', event.offsetX);
-     event.target.setAttribute('y', event.offsetY);
-     });
-     */
+        })
+        .bind('drag', function (event, ui) {
+            // update coordinates manually, since top/left style props don't work on SVG
+            //
+            event.target.setAttribute('x', event.offsetX);
+            event.target.setAttribute('y', event.offsetY);
+        });
+
     $('rect, image, text, circle, path').off().on('click', function (event) {
         $('.formedition').css('display', 'block');
         var obj = {};

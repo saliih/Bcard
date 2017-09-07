@@ -4,6 +4,9 @@ bcard_homepage:
 models:
     path: /models/{id}
     defaults: { _controller: BcardBundle:Model:index }
+upload_logo:
+    path: /uploadlogo
+    defaults: { _controller: BcardBundle:Model:uploadlogo }
 
 bcard_generate_form :
     path: /generateform
