@@ -51,7 +51,7 @@ class AdminController extends Controller
             }
 
             $pdf->AddPage();
-            $pdf->ImageSVG($path . $verso, 0, 0, $width, $height);
+            $pdf->ImageSVG($path . $verso, 0, 0, $width, $height, '','', '', 0, true);
         }
         $filename = 'caret_visite';
         $pdf->Output($filename . ".pdf", 'I'); // This will output the PDF as a response directly

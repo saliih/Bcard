@@ -22,17 +22,20 @@ class ModelController extends Controller
     }
     public function uploadlogoAction(Request $request){
         $file = $request->files->get('upload-file-selector');
-        $time = time() + rand(1, 61561) . $file->getClientOriginalExtension();
+
+        $time = time() + rand(1, 61561) .".". $file->getClientOriginalExtension();
         $file->move(
             $this->getParameter('kernel.root_dir') . "/../web/uploads/",
             $time
         );
         $filename = $this->getParameter('kernel.root_dir') . "/../web/uploads/" . $time;
+        $info = getimagesize($filename);
+        list($x, $y) = $info;
         $type = pathinfo($filename, PATHINFO_EXTENSION);
         $data = file_get_contents($filename);
-        return new Response(base64_encode($data));
+        return new JsonResponse(array("type"=>$type,"width"=>$x,"height"=>$y,'base64'=>base64_encode($data),"url"=>"/uploads/".$time));
         $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
-        return new Response($base64);
+        return new JsonResponse(array('base64'=>$base64,"url"=>$filename));
     }
 
     public function submitInvoiceAction(Request $request){
