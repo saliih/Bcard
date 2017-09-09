@@ -85,6 +85,7 @@ fos_js_routing:
     routes_to_expose:
         - bcard_generate_form
         - submitinvoice
+        - upload_logo
 
 
 fos_user:
