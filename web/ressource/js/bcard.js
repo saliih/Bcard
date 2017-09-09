@@ -2,6 +2,7 @@
  * Created by sarra on 16/05/17.
  */
 $(document).ready(function () {
+    $('.recto svg i').remove();
     $('#upload-file-selector').on('change',function (event) {
         $('#uploadfile').submit();
     });
@@ -10,7 +11,7 @@ $(document).ready(function () {
         var url = $(this).attr('action');
 
         getRequest(Routing.generate('upload_logo'), data, function (result) {
-            var html = '<g><image height="'+result.width+'" width="'+result.height+'" href="http://bcard.local/' +result.url+'" x="0" y="0"></image></g>';
+            var html = '<g><image height="'+result.width+'" width="'+result.height+'" href="' +result.url+'" x="0" y="0"></image></g>';
             if($('.recto svg switch g').eq(0).length){
                 $('.recto svg switch g').eq(0).append(html);
             }else{
@@ -19,7 +20,17 @@ $(document).ready(function () {
             var oldhtml = $('.recto svg').html();
             var newhtml = oldhtml.replace(/img/g, "image");
             $('.recto svg').html(newhtml);
+            $.each($('image'),function (index,element) {
+                $(element).after("</image>");
+            });
 
+            /*var img = "image"+Math.floor((Math.random() * 1000000) + 1).toString();
+            var html = '<i:pgf id="'+img+'">'+result+'</i:pgf>'
+            $('.recto svg').append(html);
+            var html2 = '<foreignObject requiredExtensions="&amp;ns_ai;" x="0" y="0" width="1" height="1">'
+                    +'<i:pgfref xlink:href="#'+img+'">'
+                    +'</i:pgfref></foreignObject>';
+            $('.recto svg').prepend(html2);*/
             $('g image').resizable();
             $('g image')
                 .draggable({

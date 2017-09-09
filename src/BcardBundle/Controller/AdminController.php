@@ -37,7 +37,9 @@ class AdminController extends Controller
         $pdf->SetAutoPageBreak(true, 0);
         $pdf->setFontSubsetting(false);
         $pdf->AddPage();
+
         $pdf->ImageSVG($path .$recto, 0, 0, $width, $height);
+        $this->image($pdf,$path .$recto);
         if($verso!="") {
             preg_match( '/width="([^"]*)"/i', file_get_contents($path.$verso), $arraywidth ) ;
             preg_match( '/width="([^"]*)"/i', file_get_contents($path.$verso), $arrayheight ) ;
@@ -51,10 +53,28 @@ class AdminController extends Controller
             }
 
             $pdf->AddPage();
+
             $pdf->ImageSVG($path . $verso, 0, 0, $width, $height, '','', '', 0, true);
+            $this->image($pdf,$path .$verso);
         }
         $filename = 'caret_visite';
         $pdf->Output($filename . ".pdf", 'I'); // This will output the PDF as a response directly
+
+    }
+    private function image($pdf,$svg){
+        $contentrecto =  file_get_contents(     $svg);
+        preg_match_all('/<image[^>]+>/i',$contentrecto, $result);
+        foreach ($result as $image){
+            $images = array();
+            preg_match_all('/(height|width|href|x|y|style)=("[^"]*")/i',$image[0], $data);
+            foreach ($data[1] as $key=>$element){
+                $images[$element] = substr($data[2][$key],1,-1);
+            }
+            //echo "<pre>";print_r($images);
+            $pdf->Image($this->get('kernel')->getRootDir() . '/../web'.$images['href'],(int) $images['x'],10,$images['width'],$images['height']);
+            //$pdf->Image($this->get('kernel')->getRootDir() . '/../web'.substr($images['href'],1,-1),($images['x']/4.16),($images['y']/4.16),$images['width'],$images['height']);
+
+        }
 
 
     }
