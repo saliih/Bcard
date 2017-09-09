@@ -33,7 +33,8 @@ class ModelController extends Controller
         list($x, $y) = $info;
         $type = pathinfo($filename, PATHINFO_EXTENSION);
         $data = file_get_contents($filename);
-        return new JsonResponse(array("type"=>$type,"width"=>$x,"height"=>$y,'base64'=>base64_encode($data),"url"=>"/bcard/web/uploads/".$time));
+        //,'base64'=>base64_encode($data)
+        return new JsonResponse(array("type"=>$type,"width"=>$x,"height"=>$y,"url"=>"/bcard/web/uploads/".$time));
         $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
         return new JsonResponse(array('base64'=>$base64,"url"=>$filename));
     }
