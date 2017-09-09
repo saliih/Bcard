@@ -71,6 +71,7 @@ class AdminController extends Controller
                 $images[$element] = substr($data[2][$key],1,-1);
             }
             //echo "<pre>";print_r($images);
+            echo $this->get('kernel')->getRootDir() . '/../web'.$images['href'];exit;
             $pdf->Image($this->get('kernel')->getRootDir() . '/../web'.$images['href'],(int) $images['x'],10,$images['width'],$images['height']);
             //$pdf->Image($this->get('kernel')->getRootDir() . '/../web'.substr($images['href'],1,-1),($images['x']/4.16),($images['y']/4.16),$images['width'],$images['height']);
 
