@@ -30,31 +30,8 @@
     </div>
 
     <div class="container produit-page">
-
-        <div class="row">
-            <div class="col-md-8">
-                <div class="col-md-6 produit-content">
-                    <div class="bcard recto">
-                        {{ template.recto | convertSVG | raw }}
-                    </div>
-
-                </div>
-                {% if template.verso|length>0 %}
-                <div class="col-md-6 produit-content">
-
-                    <div class="bcard verso">
-                        {{ template.verso | convertSVG | raw  }}
-
-                    </div>
-
-                </div>
-                    {% endif %}
-            </div>
-            <div class="col-md-4 formedition" style="display: none;"></div>
-        </div>
         <div class="row">
             <div class="col-md-12">
-                <a href="#fiche_Validation" role="button" data-toggle="modal" class="btn btn-sm btn-success pull-right">Valider</a>
 
                 <form name="uploadfile" id="uploadfile" method="post">
     <span id="fileselector">
@@ -65,6 +42,34 @@
         </label>
     </span>
                 </form>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="bcard recto">
+                    {{ template.recto | convertSVG | raw }}
+                </div>
+            </div>
+            <div class="col-md-4 textelementrecto"></div>
+            <div class="col-md-4 formedition"></div>
+        </div>
+        {% if template.verso|length>0 %}
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="bcard verso">
+                        {{ template.verso | convertSVG | raw }}
+
+                    </div>
+                </div>
+                <div class="col-md-4 textelementverso"></div>
+                <div class="col-md-4 formedition"></div>
+            </div>
+        {% endif %}
+
+        <div class="row">
+            <div class="col-md-12">
+                <a href="#fiche_Validation" role="button" data-toggle="modal" class="btn btn-sm btn-success pull-right">Valider</a>
             </div>
         </div>
     </div>
@@ -85,9 +90,9 @@
 
                     {{ form_end(form) }}
                 </div>
-               <!-- <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>-->
+                <!-- <div class="modal-footer">
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                 </div>-->
             </div>
         </div>
     </div>
