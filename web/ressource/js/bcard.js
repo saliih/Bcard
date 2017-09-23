@@ -1,7 +1,28 @@
 /**
  * Created by sarra on 16/05/17.
  */
+function refreshText(){
+    debugger;
+    $('.textelementrecto').html("");
+    $.each($('svg'),function (index,svg) {
+        var $svg = $(svg);
+        $.each($svg.find('text'),function (key,text) {
+            var content = $(text).html();
+            var id = $(text).attr('id');
+            if(content.trim())
+                var html = '<label  id="bc_'+id+'" data-value="'+id+'" class="form-control element" >'+content+'</label>';
+            $('.textelementrecto').append(html);
+        });
+
+    });
+    $('.element').off().on('click',function (event) {
+        var id = $(this).attr('data-value');
+        $('#'+id).trigger('click');
+    });
+}
 $(document).ready(function () {
+    // detect text
+    refreshText();
     $('.recto svg i').remove();
     $('#upload-file-selector').on('change',function (event) {
         $('#uploadfile').submit();
@@ -146,6 +167,7 @@ $(document).ready(function () {
 
         getRequest(Routing.generate('bcard_generate_form'), obj, function (html) {
             $('.formedition').html('').html(html);
+
             $('.colorpicker').colorpicker({
                 customClass: 'colorpicker-2x',
                 format: 'hex',
@@ -169,6 +191,7 @@ $(document).ready(function () {
                 .not('input[type=file]')
                 .on('change', function (event) {
                     changeBlock(event.currentTarget);
+                    refreshText();
                 });
             $('.formedition input[type=file]').on('change', function (event) {
                 $(event.currentTarget).closest('form').submit();
