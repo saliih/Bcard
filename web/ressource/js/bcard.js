@@ -99,7 +99,7 @@ $(document).ready(function () {
         return false;
     });
     $('g image').resizable();
-    $('g image')
+    $('g image, g.text')
         .draggable({
             containment: "g",
             scroll: true,
