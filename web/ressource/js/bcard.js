@@ -32,7 +32,7 @@ $(document).ready(function () {
                     +'</i:pgfref></foreignObject>';
             $('.recto svg').prepend(html2);*/
             $('g image').resizable();
-            $('g image')
+            $('g image, g text')
                 .draggable({
                     containment: "g",
                     scroll: true,
