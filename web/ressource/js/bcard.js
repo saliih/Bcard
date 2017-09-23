@@ -94,109 +94,7 @@ $(document).ready(function () {
         getRequest(Routing.generate('submitinvoice'), data, function (response) {
             $('#fiche_Validation').modal('hide');
             $('#validation').modal();
-            $(document).off().on('click','rect, image, text, circle, path', function (event) {
-                $('.formedition').css('display', 'block');
-                var obj = {};
-                if ($(this).is('rect')) {
-                    obj = {
-                        type: 'rect',
-                        id: $(this).attr('id'),
-                        stroke: $(this).attr('stroke'),
-                        fill: $(this).attr('fill'),
-                        x: $(this).attr('x'),
-                        y: $(this).attr('y'),
-                        width: $(this).attr('width'),
-                        height: $(this).attr('height'),
-                    };
-                } else if ($(this).is('image')) {
-                    obj = {
-                        type: 'image',
-                        id: $(this).attr('id'),
-                        x: $(this).attr('x'),
-                        y: $(this).attr('y')
-                    }
-                } else if ($(this).is('text')) {
-                    obj = {
-                        type: 'text',
-                        id: $(this).attr('id'),
-                        text: this.textContent,
-                        stroke: $(this).attr('stroke'),
-                        fill: $(this).attr('fill'),
-                        x: $(this).attr('x'),
-                        y: $(this).attr('y'),
-                        width: $(this).attr('width'),
-                        height: $(this).attr('height'),
-                        fontfamily: $(this).attr('font-family'),
-                        fontsize: $(this).attr('font-size'),
-                    }
-                } else if ($(this).is('circle')) {
-                    obj = {
-                        type: 'circle',
-                        id: $(this).attr('id'),
-                        stroke: $(this).attr('stroke'),
-                        strokewidth: $(this).attr('stroke-width'),
-                        fill: $(this).attr('fill'),
-                        cx: $(this).attr('cx'),
-                        cy: $(this).attr('cy'),
-                        r: $(this).attr('r'),
-                    }
-                } else if ($(this).is('path')) {
-                    obj = {
-                        type: 'path',
-                        fill: $(this).attr('fill'),
-                    }
-                }
-                window.element = $(this);
-
-                getRequest(Routing.generate('bcard_generate_form'), obj, function (html) {
-                    $('.formedition').html('').html(html);
-
-                    $('.colorpicker').colorpicker({
-                        customClass: 'colorpicker-2x',
-                        format: 'hex',
-                        sliders: {
-                            saturation: {
-                                maxLeft: 200,
-                                maxTop: 200
-                            },
-                            hue: {
-                                maxTop: 200
-                            },
-                            alpha: {
-                                maxTop: 200
-                            }
-                        }
-                    }).on('changeColor', function (event) {
-                        changeBlock(event.currentTarget);
-                    });
-                    $('.formedition input, .formedition select')
-                        .not('.colorpicker')
-                        .not('input[type=file]')
-                        .on('change', function (event) {
-                            changeBlock(event.currentTarget);
-                            refreshText();
-                        });
-                    $('.formedition input[type=file]').on('change', function (event) {
-                        $(event.currentTarget).closest('form').submit();
-                    });
-                    $('#formlogo').on('submit', function (event) {
-                        var data = new FormData(this);
-                        var url = $(this).attr('action');
-
-                        getRequest(url, data, function (result) {
-                            var id = $("input[type=file]").attr("data-id");
-                            $('#' + id).attr('xlink:href', result);
-                        }, {type: "POST"}, {
-                            cache: false,
-                            dataType: 'html',
-                            mimeType: "multipart/form-data",
-                            contentType: false,
-                            processData: false
-                        });
-                        return false;
-                    });
-                })
-            })
+           eventElements()
         });
 
         return false;
@@ -216,6 +114,21 @@ $(document).ready(function () {
             event.target.setAttribute('y', event.offsetY);
         });
 
+    eventElements()
+});
+function changeBlock(input) {
+    var val = $(input).val();
+    var id = $(input).attr("data-id");
+    var attr = $(input).attr('data-element');
+    if (attr == "fontfamily")attr = "font-family";
+    if (attr == "fontsize")attr = "font-size";
+    if (attr == "text") {
+        window.element.text(val);
+    } else {
+        window.element.attr(attr, val);
+    }
+}
+function eventElements(){
     $(document).off().on('click','rect, image, text, circle, path', function (event) {
         $('.formedition').css('display', 'block');
         var obj = {};
@@ -235,7 +148,9 @@ $(document).ready(function () {
                 type: 'image',
                 id: $(this).attr('id'),
                 x: $(this).attr('x'),
-                y: $(this).attr('y')
+                y: $(this).attr('y'),
+                width: $(this).attr('width'),
+                height: $(this).attr('height'),
             }
         } else if ($(this).is('text')) {
             obj = {
@@ -319,20 +234,7 @@ $(document).ready(function () {
             });
         })
     })
-});
-function changeBlock(input) {
-    var val = $(input).val();
-    var id = $(input).attr("data-id");
-    var attr = $(input).attr('data-element');
-    if (attr == "fontfamily")attr = "font-family";
-    if (attr == "fontsize")attr = "font-size";
-    if (attr == "text") {
-        window.element.text(val);
-    } else {
-        window.element.attr(attr, val);
-    }
 }
-
 function getRequest(url, _data, success_function, params, extraParams) {
     params = params || {};
     var showloader = params.showloader || true;

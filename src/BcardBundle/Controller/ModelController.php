@@ -79,6 +79,8 @@ class ModelController extends Controller
                 $extra = array("file" => "file",
                     'x'=>$request->request->get('x'),
                     'y'=>$request->request->get('y'),
+                    "width" =>$request->request->get('width'),
+                    "height" =>$request->request->get('height'),
                 );
                 break;
             case "text":
@@ -143,7 +145,7 @@ class ModelController extends Controller
                         'value' => $value,
                         'key' => $key,
                     ));
-            } else if (in_array($key, array("x", "y"))) {
+            } else if (in_array($key, array("x", "y","width", "height"))) {
                 $html .= $this->renderView("BcardBundle:Fields:number.html.twig",
                     array(
                         'title' => "Text ",
