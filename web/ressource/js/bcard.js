@@ -113,7 +113,7 @@ $(document).ready(function () {
             event.target.setAttribute('y', event.offsetY);
         });
 
-    $('rect, image, text, circle, path').off().on('click', function (event) {
+    $(document).off().on('click','rect, image, text, circle, path', function (event) {
         $('.formedition').css('display', 'block');
         var obj = {};
         if ($(this).is('rect')) {
@@ -131,6 +131,8 @@ $(document).ready(function () {
             obj = {
                 type: 'image',
                 id: $(this).attr('id'),
+                x: $(this).attr('x'),
+                y: $(this).attr('y')
             }
         } else if ($(this).is('text')) {
             obj = {
