@@ -76,7 +76,10 @@ class ModelController extends Controller
                 );
                 break;
             case "image":
-                $extra = array("file" => "file");
+                $extra = array("file" => "file",
+                    'x'=>$request->request->get('x'),
+                    'y'=>$request->request->get('y'),
+                );
                 break;
             case "text":
                 $extra = array(
