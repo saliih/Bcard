@@ -2,7 +2,6 @@
  * Created by sarra on 16/05/17.
  */
 function refreshText(){
-    debugger;
     $('.textelementrecto').html("");
     $.each($('svg'),function (index,svg) {
         var $svg = $(svg);
@@ -56,9 +55,10 @@ $(document).ready(function () {
             $('g image, g text')
                 .draggable({
                     containment: "g",
-                    scroll: true,
-                    cursor: "move",
-
+                    scroll: false,
+                    //cursor: "move",
+                    cursor: "pointer",
+                    cursorAt: { left: Math.round($(this).outerWidth() / 2), top: Math.round($(this).outerHeight() / 2)  }
                 })
                 .bind('drag', function (event, ui) {
                     // update coordinates manually, since top/left style props don't work on SVG
@@ -100,11 +100,13 @@ $(document).ready(function () {
         return false;
     });
     $('g image').resizable();
-    $('g image, g.text')
+    $('g image, g text')
         .draggable({
             containment: "g",
-            scroll: true,
-            cursor: "move",
+            scroll: false,
+            //cursor: "move",
+            cursor: "pointer",
+            cursorAt: { left: Math.round($(this).outerWidth() / 2), top: Math.round($(this).outerHeight() / 2)  }
 
         })
         .bind('drag', function (event, ui) {
@@ -124,6 +126,10 @@ function changeBlock(input) {
     if (attr == "fontsize")attr = "font-size";
     if (attr == "text") {
         window.element.text(val);
+    }else if(attr == "width"){
+        $(window.element).width($(window.element).attr("width") * parseFloat(val) / 100);
+        $(window.element).height($(window.element).attr('height') * parseFloat(val) / 100);
+        //debugger
     } else {
         window.element.attr(attr, val);
     }

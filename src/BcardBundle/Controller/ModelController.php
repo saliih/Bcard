@@ -80,7 +80,7 @@ class ModelController extends Controller
                     'x'=>$request->request->get('x'),
                     'y'=>$request->request->get('y'),
                     "width" =>$request->request->get('width'),
-                    "height" =>$request->request->get('height'),
+                    //"height" =>$request->request->get('height'),
                 );
                 break;
             case "text":
@@ -145,10 +145,17 @@ class ModelController extends Controller
                         'value' => $value,
                         'key' => $key,
                     ));
-            } else if (in_array($key, array("x", "y","width", "height"))) {
+            } else if (in_array($key, array("x", "y"))) {
                 $html .= $this->renderView("BcardBundle:Fields:number.html.twig",
                     array(
-                        'title' => "Text ",
+                        'title' => "coordonnées ",
+                        'value' => $value,
+                        'key' => $key,
+                    ));
+            } else if (in_array($key, array("width", "height"))) {
+                $html .= $this->renderView("BcardBundle:Fields:range.html.twig",
+                    array(
+                        'title' => "largeur",
                         'value' => $value,
                         'key' => $key,
                     ));

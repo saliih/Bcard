@@ -1,0 +1,11 @@
+<div class="form-group">
+    <label>{{ title }}</label>
+    <input type="range"  min="0" max="100" class="form-control" value="100" data-element="{{ key }}"  placeholder="{{ title }}"  step="5" onchange="showValue(this.value)">
+    <span id="range">0</span>
+    <script type="text/javascript">
+        function showValue(newValue)
+        {
+            document.getElementById("range").innerHTML=newValue +" %";
+        }
+    </script>
+</div>
