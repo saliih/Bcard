@@ -212,7 +212,7 @@ function eventElements(){
             }).on('changeColor', function (event) {
                 changeBlock(event.currentTarget);
             });
-            $('.formedition input, .formedition select')
+            $('.formedition input, .formedition textarea, .formedition select')
                 .not('.colorpicker')
                 .not('input[type=file]')
                 .on('change', function (event) {
