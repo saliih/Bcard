@@ -3,9 +3,30 @@
 namespace BcardBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class AdminController extends Controller
 {
+    public function deletePictAction(Request $request, $id){
+        $em = $this->getDoctrine()->getManager();
+        $template = $this->getDoctrine()->getRepository('BcardBundle:Template')->find($id);
+         $type = $request->request->get('box');
+        switch ($type){
+            case 'deletepict':
+                $template->setPicture('');
+                break;
+            case 'deleterecto':
+                $template->setRecto("");
+                break;
+            case 'deleteverso':
+                $template->setVerso("");
+                break;
+        }
+        $em->persist($template);
+        $em->flush();
+        return new Response("true");
+    }
     public function generatePdfAction($id)
     {
         $invoice = $this->getDoctrine()->getRepository('BcardBundle:Invoice')->find($id);

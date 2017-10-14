@@ -48,12 +48,22 @@ class TemplateAdmin extends Admin
         $fileFieldOptions = array('required' => false);
         $fileFieldOptions['data_class'] = null;
         $fileFieldOptions['required'] = false;
-        //$fileFieldOptions['label'] = "Attachez un fichier";
-
+        if($this->getSubject()->getPicture()!="") {
+            $fullPath = '/uploads/pict/' . $this->getSubject()->getPicture();
+            $fileFieldOptions['help'] = '<img src="' . $fullPath . '" class="admin-preview" /> <a href ="#" id="deletepict">delete</a>';
+        }
         $formMapper->add('uploaded_file', FileType::class, $fileFieldOptions);
         $formMapper->add('picture', HiddenType::class, array());
+        $fileFieldOptions['help'] = "";
+        if($this->getSubject()->getRecto()!="") {
+            $fileFieldOptions['help'] = '<a href ="#" id="deleterecto">delete Recto</a>';
+        }
         $formMapper->add('uploaded_file_recto', FileType::class, $fileFieldOptions);
         $formMapper->add('recto', HiddenType::class, array());
+
+        if($this->getSubject()->getVerso()!="") {
+            $fileFieldOptions['help'] = '<a href ="#" id="deleteverso">delete getVerso</a>';
+        }
         $formMapper->add('uploaded_file_verso', FileType::class, $fileFieldOptions);
         $formMapper->add('verso', HiddenType::class, array());
     }

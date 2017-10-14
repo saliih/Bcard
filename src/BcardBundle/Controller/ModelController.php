@@ -22,7 +22,9 @@ class ModelController extends Controller
     }
     public function uploadlogoAction(Request $request){
         $file = $request->files->get('upload-file-selector');
-
+        if($file ==""){
+            $file = $request->files->get('upload-file-selector-background');
+        }
         $time = time() + rand(1, 61561) .".". $file->getClientOriginalExtension();
         $file->move(
             $this->getParameter('kernel.root_dir') . "/../web/uploads/",

@@ -26,6 +26,9 @@ $(document).ready(function () {
     $('#upload-file-selector').on('change',function (event) {
         $('#uploadfile').submit();
     });
+    $('#upload-file-selector-background').on('change',function (event) {
+        $('#uploadfile-background').submit();
+    });
     $('#uploadfile').on('submit',function () {
         var data = new FormData(this);
         var url = $(this).attr('action');
@@ -66,6 +69,57 @@ $(document).ready(function () {
                     event.target.setAttribute('x', event.offsetX);
                     event.target.setAttribute('y', event.offsetY);
                 });
+        }, {type: "POST"}, {
+            cache: false,
+            dataType: 'json',
+            mimeType: "multipart/form-data",
+            contentType: false,
+            processData: false
+        });
+        return false;
+    });
+
+
+    $('#uploadfile-background').on('submit',function () {
+        var data = new FormData(this);
+        var url = $(this).attr('action');
+
+        getRequest(Routing.generate('upload_logo'), data, function (result) {
+            var html = '<g><image height="'+$('svg').eq(0).height()+'" width="'+$('svg').eq(0).width()+'" href="' +result.url+'" x="0" y="0"></image></g>';
+            if($('.recto svg switch g').eq(0).length){
+                $('.recto svg switch g').eq(0).prepend(html);
+            }else{
+                $('.recto svg').prepend(html);
+            }
+            var oldhtml = $('.recto svg').html();
+            var newhtml = oldhtml.replace(/img/g, "image");
+            $('.recto svg').html(newhtml);
+            $.each($('image'),function (index,element) {
+                $(element).after("</image>");
+            });
+
+            /*var img = "image"+Math.floor((Math.random() * 1000000) + 1).toString();
+            var html = '<i:pgf id="'+img+'">'+result+'</i:pgf>'
+            $('.recto svg').append(html);
+            var html2 = '<foreignObject requiredExtensions="&amp;ns_ai;" x="0" y="0" width="1" height="1">'
+                    +'<i:pgfref xlink:href="#'+img+'">'
+                    +'</i:pgfref></foreignObject>';
+            $('.recto svg').prepend(html2);*/
+            /*$('g image').resizable();
+            $('g image, g text')
+                .draggable({
+                    containment: "g",
+                    scroll: false,
+                    //cursor: "move",
+                    cursor: "pointer",
+                    cursorAt: { left: Math.round($(this).outerWidth() / 2), top: Math.round($(this).outerHeight() / 2)  }
+                })
+                .bind('drag', function (event, ui) {
+                    // update coordinates manually, since top/left style props don't work on SVG
+                    //
+                    event.target.setAttribute('x', event.offsetX);
+                    event.target.setAttribute('y', event.offsetY);
+                });*/
         }, {type: "POST"}, {
             cache: false,
             dataType: 'json',

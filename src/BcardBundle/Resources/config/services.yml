@@ -7,6 +7,8 @@ services:
         arguments: [~, BcardBundle\Entity\Template, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: "Template" ,label: 'Template', icon:'<i class="fa fa-envelope"></i>' }
+        calls:
+            - [ setTemplate, [edit, BcardBundle:Template:edit.html.twig]]
     admin.Invoice:
         class: BcardBundle\Admin\InvoiceAdmin
         arguments: [~, BcardBundle\Entity\Invoice, ~]

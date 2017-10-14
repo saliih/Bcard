@@ -20,3 +20,6 @@ submitinvoice :
 generatepdf :
     path: /admin/generatePdf/{id}
     defaults: { _controller : BcardBundle:Admin:generatePdf}
+deletepict :
+    path: /admin/deletePict/{id}
+    defaults: { _controller : BcardBundle:Admin:deletePict}

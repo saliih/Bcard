@@ -1,0 +1,53 @@
+{% extends 'SonataAdminBundle:CRUD:edit.html.twig' %}
+{% block javascripts %}
+    {{ parent() }}
+    {% if object.id != "" %}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#deletepict, #deleterecto, #deleteverso').on('click',function () {
+                var id = $(this).attr('id');
+                getRequest(Routing.generate('deletepict',{id:{{ object.id }} }),{box:id},function (result) {
+                    location.reload();
+                });
+                return false;
+            });
+        });
+
+
+        function getRequest(url, _data, success_function, params, extraParams) {
+            params = params || {};
+            var showloader = params.showloader || true;
+
+            var parameters = {
+                async: true,
+                url: url,
+                type: params.type || "POST",
+                data: _data,
+                success: function (data) {
+                    if (data === "is_not_logged") {
+                        successDialog("Nyellow", "Session expired! Please login again.", BootstrapDialog.TYPE_WARNING, undefined, function () {
+                            window.location.href = "login";
+                        });
+                    } else {
+                        if (typeof (success_function) == "function") {
+                            success_function(data);
+                        }
+                    }
+                },
+                error: function (xhr) {
+                    errorDialog('Error contacting server', 'Error encountered : ' + xhr.responseText);
+                },
+                complete: function () {
+
+                }
+            };
+            if (typeof(extraParams) == "object") {
+                $.extend(parameters, extraParams);
+            }
+            $.ajax(parameters);
+        }
+    </script>
+        {% endif %}
+{% endblock %}
