@@ -49,7 +49,7 @@ class TemplateAdmin extends Admin
         $fileFieldOptions['data_class'] = null;
         $fileFieldOptions['required'] = false;
         if($this->getSubject()->getPicture()!="") {
-            $fullPath = '/uploads/pict/' . $this->getSubject()->getPicture();
+            $fullPath = '/bcard/uploads/pict/' . $this->getSubject()->getPicture();
             $fileFieldOptions['help'] = '<img src="' . $fullPath . '" class="admin-preview" /> <a href ="#" id="deletepict">delete</a>';
         }
         $formMapper->add('uploaded_file', FileType::class, $fileFieldOptions);
