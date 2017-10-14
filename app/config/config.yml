@@ -86,6 +86,7 @@ fos_js_routing:
         - bcard_generate_form
         - submitinvoice
         - upload_logo
+        - deletepict
 
 
 fos_user:
