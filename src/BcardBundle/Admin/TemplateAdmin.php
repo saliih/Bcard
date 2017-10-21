@@ -66,6 +66,7 @@ class TemplateAdmin extends Admin
         }
         $formMapper->add('uploaded_file_verso', FileType::class, $fileFieldOptions);
         $formMapper->add('verso', HiddenType::class, array());
+        $formMapper->add('fonts');
     }
 
     public function prePersist($object)

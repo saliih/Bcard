@@ -61,7 +61,14 @@ class Template
      * @ORM\Column(name="verso", type="string", length=255, nullable=true)
      */
     private $verso;
-
+    /**
+     * @ORM\ManyToMany(targetEntity="BcardBundle\Entity\Fonts")
+     * @ORM\JoinTable(name="Template_fonts",
+     *      joinColumns={@ORM\JoinColumn(name="template_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="fonts_id", referencedColumnName="id")}
+     * )
+     */
+    private $fonts;
     /**
      * @Assert\File(maxSize="20M")
      */
@@ -326,5 +333,46 @@ class Template
     public function getVerso()
     {
         return $this->verso;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->fonts = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add font
+     *
+     * @param \BcardBundle\Entity\Fonts $font
+     *
+     * @return Template
+     */
+    public function addFont(\BcardBundle\Entity\Fonts $font)
+    {
+        $this->fonts[] = $font;
+
+        return $this;
+    }
+
+    /**
+     * Remove font
+     *
+     * @param \BcardBundle\Entity\Fonts $font
+     */
+    public function removeFont(\BcardBundle\Entity\Fonts $font)
+    {
+        $this->fonts->removeElement($font);
+    }
+
+    /**
+     * Get fonts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFonts()
+    {
+        return $this->fonts;
     }
 }

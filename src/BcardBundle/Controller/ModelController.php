@@ -109,6 +109,8 @@ class ModelController extends Controller
                 );
                 break;
         }
+
+
         $html = "";
         foreach ($extra as $key => $value) {
             if ($key == 'id') continue;

@@ -1,5 +1,7 @@
 <div class="form-group">
-    <label>{{ title }}</label>
-    <input type="text" class="form-control colorpicker" value="{{ value }}" data-element="{{ key }}"  placeholder="{{ title }}">
+    <div id="cp2" class="input-group colorpicker-component">
+        <input type="text" class="form-control colorpicker" value="{{ value }}" data-element="{{ key }}"  placeholder="{{ title }}" />
+        <span class="input-group-addon"><i style="background: {{ value }}"> </i></span>
+    </div>
 </div>
 

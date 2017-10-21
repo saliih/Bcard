@@ -14,3 +14,9 @@ services:
         arguments: [~, BcardBundle\Entity\Invoice, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: "Template" ,label: 'Commande', icon:'<i class="fa fa-envelope"></i>' }
+
+    admin.fonts:
+        class: BcardBundle\Admin\FontsAdmin
+        arguments: [~, BcardBundle\Entity\Fonts, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Template" ,label: 'List des fonts google', icon:'<i class="fa fa-envelope"></i>' }

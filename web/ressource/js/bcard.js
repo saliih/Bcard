@@ -189,19 +189,38 @@ function changeBlock(input) {
     }
 }
 function eventElements(){
-    $(document).off().on('click','rect, image, text, circle, path', function (event) {
+    $(document).off().on('click','polyline, polygon, line ,ellipse, rect, image, text, circle, path', function (event) {
         $('.formedition').css('display', 'block');
         var obj = {};
-        if ($(this).is('rect')) {
+        if ($(this).is('rect') || $(this).is('polyline') || $(this).is('polygon') || $(this).is('line') || $(this).is('ellipse') || $(this).is('circle') ) {
+            var type = "";
+            if($(this).is('rect') ){
+                type = 'rect';
+            }
+            if($(this).is('polyline') ){
+                type = 'polyline';
+            }
+            if( $(this).is('polygon')){
+                type = 'polygon';
+            }
+            if( $(this).is('line') ){
+                type = 'line';
+            }
+            if($(this).is('ellipse')){
+                type = 'ellipse';
+            }
+            if($(this).is('circle')){
+                type = 'circle';
+            }
             obj = {
-                type: 'rect',
+                type: type,
                 id: $(this).attr('id'),
-                stroke: $(this).attr('stroke'),
-                fill: $(this).attr('fill'),
-                x: $(this).attr('x'),
-                y: $(this).attr('y'),
-                width: $(this).attr('width'),
-                height: $(this).attr('height'),
+                //stroke: $(this).attr('stroke'),
+                fill: $(this).attr('fill')
+               // x: $(this).attr('x'),
+               // y: $(this).attr('y'),
+               // width: $(this).attr('width'),
+               // height: $(this).attr('height'),
             };
         } else if ($(this).is('image')) {
             obj = {
@@ -226,17 +245,6 @@ function eventElements(){
                 fontfamily: $(this).attr('font-family'),
                 fontsize: $(this).attr('font-size'),
             }
-        } else if ($(this).is('circle')) {
-            obj = {
-                type: 'circle',
-                id: $(this).attr('id'),
-                stroke: $(this).attr('stroke'),
-                strokewidth: $(this).attr('stroke-width'),
-                fill: $(this).attr('fill'),
-                cx: $(this).attr('cx'),
-                cy: $(this).attr('cy'),
-                r: $(this).attr('r'),
-            }
         } else if ($(this).is('path')) {
             obj = {
                 type: 'path',
@@ -248,22 +256,8 @@ function eventElements(){
         getRequest(Routing.generate('bcard_generate_form'), obj, function (html) {
             $('.formedition').html('').html(html);
 
-            $('.colorpicker').colorpicker({
-                customClass: 'colorpicker-2x',
-                format: 'hex',
-                sliders: {
-                    saturation: {
-                        maxLeft: 200,
-                        maxTop: 200
-                    },
-                    hue: {
-                        maxTop: 200
-                    },
-                    alpha: {
-                        maxTop: 200
-                    }
-                }
-            }).on('changeColor', function (event) {
+            $('.colorpicker').colorpicker().on('changeColor', function (event) {
+                $('.colorpicker-component .input-group-addon i').attr('style','background:'+$(this).val());
                 changeBlock(event.currentTarget);
             });
             $('.formedition input, .formedition textarea, .formedition select')

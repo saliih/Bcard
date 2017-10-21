@@ -12,7 +12,9 @@
 {% endblock %}
 {% block stylesheets %}
     {{ parent() }}
-
+    {% for item in template.fonts %}
+    <link href="{{ item.link }}" rel="stylesheet">
+        {% endfor %}
     {% stylesheets
     'ressource/css/bootstrap-colorpicker.min.css'
     'ressource/css/costum.css'
