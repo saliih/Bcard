@@ -67,6 +67,10 @@ class ModelController extends Controller
         $type = $request->request->get('type');
         $extra = array();
         switch ($type) {
+            case "polyline":
+            case "polygon":
+            case "line":
+            case "ellipse":
             case "rect":
                 $extra = array(
                     "fill" => $request->request->get('fill'),

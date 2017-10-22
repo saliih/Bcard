@@ -60,7 +60,7 @@ class TemplateAdmin extends Admin
         }
         $formMapper->add('uploaded_file_recto', FileType::class, $fileFieldOptions);
         $formMapper->add('recto', HiddenType::class, array());
-
+        $fileFieldOptions['help'] = "";
         if($this->getSubject()->getVerso()!="") {
             $fileFieldOptions['help'] = '<a href ="#" id="deleteverso">delete getVerso</a>';
         }

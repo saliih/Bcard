@@ -19,15 +19,26 @@ function refreshText(){
         $('#'+id).trigger('click');
     });
 }
+function saveTemplate(){
+    var html = $('.recto').html();
+    setAppData("localsvg"+window.template,html);
+}
 $(document).ready(function () {
+    // get from app data
+    if(getAppData("localsvg"+window.template)){
+        $('.recto').html(getAppData("localsvg"+window.template));
+    }
+
     // detect text
     refreshText();
     $('.recto svg i').remove();
     $('#upload-file-selector').on('change',function (event) {
         $('#uploadfile').submit();
+        saveTemplate();
     });
     $('#upload-file-selector-background').on('change',function (event) {
         $('#uploadfile-background').submit();
+        saveTemplate();
     });
     $('#uploadfile').on('submit',function () {
         var data = new FormData(this);
@@ -47,13 +58,6 @@ $(document).ready(function () {
                 $(element).after("</image>");
             });
 
-            /*var img = "image"+Math.floor((Math.random() * 1000000) + 1).toString();
-            var html = '<i:pgf id="'+img+'">'+result+'</i:pgf>'
-            $('.recto svg').append(html);
-            var html2 = '<foreignObject requiredExtensions="&amp;ns_ai;" x="0" y="0" width="1" height="1">'
-                    +'<i:pgfref xlink:href="#'+img+'">'
-                    +'</i:pgfref></foreignObject>';
-            $('.recto svg').prepend(html2);*/
             $('g image').resizable();
             $('g image, g text')
                 .draggable({
@@ -69,6 +73,7 @@ $(document).ready(function () {
                     event.target.setAttribute('x', event.offsetX);
                     event.target.setAttribute('y', event.offsetY);
                 });
+            saveTemplate();
         }, {type: "POST"}, {
             cache: false,
             dataType: 'json',
@@ -76,6 +81,7 @@ $(document).ready(function () {
             contentType: false,
             processData: false
         });
+
         return false;
     });
 
@@ -97,29 +103,7 @@ $(document).ready(function () {
             $.each($('image'),function (index,element) {
                 $(element).after("</image>");
             });
-
-            /*var img = "image"+Math.floor((Math.random() * 1000000) + 1).toString();
-            var html = '<i:pgf id="'+img+'">'+result+'</i:pgf>'
-            $('.recto svg').append(html);
-            var html2 = '<foreignObject requiredExtensions="&amp;ns_ai;" x="0" y="0" width="1" height="1">'
-                    +'<i:pgfref xlink:href="#'+img+'">'
-                    +'</i:pgfref></foreignObject>';
-            $('.recto svg').prepend(html2);*/
-            /*$('g image').resizable();
-            $('g image, g text')
-                .draggable({
-                    containment: "g",
-                    scroll: false,
-                    //cursor: "move",
-                    cursor: "pointer",
-                    cursorAt: { left: Math.round($(this).outerWidth() / 2), top: Math.round($(this).outerHeight() / 2)  }
-                })
-                .bind('drag', function (event, ui) {
-                    // update coordinates manually, since top/left style props don't work on SVG
-                    //
-                    event.target.setAttribute('x', event.offsetX);
-                    event.target.setAttribute('y', event.offsetY);
-                });*/
+            saveTemplate();
         }, {type: "POST"}, {
             cache: false,
             dataType: 'json',
@@ -148,6 +132,7 @@ $(document).ready(function () {
         getRequest(Routing.generate('submitinvoice'), data, function (response) {
             $('#fiche_Validation').modal('hide');
             $('#validation').modal();
+            saveTemplate();
            eventElements()
         });
 
@@ -168,6 +153,7 @@ $(document).ready(function () {
             //
             event.target.setAttribute('x', event.offsetX);
             event.target.setAttribute('y', event.offsetY);
+            saveTemplate();
         });
 
     eventElements()
@@ -187,6 +173,7 @@ function changeBlock(input) {
     } else {
         window.element.attr(attr, val);
     }
+    saveTemplate();
 }
 function eventElements(){
     $(document).off().on('click','polyline, polygon, line ,ellipse, rect, image, text, circle, path', function (event) {
@@ -256,7 +243,7 @@ function eventElements(){
         getRequest(Routing.generate('bcard_generate_form'), obj, function (html) {
             $('.formedition').html('').html(html);
 
-            $('.colorpicker').colorpicker().on('changeColor', function (event) {
+            $('.colorpicker').colorpicker({format:'hex'}).on('changeColor', function (event) {
                 $('.colorpicker-component .input-group-addon i').attr('style','background:'+$(this).val());
                 changeBlock(event.currentTarget);
             });
@@ -277,6 +264,7 @@ function eventElements(){
                 getRequest(url, data, function (result) {
                     var id = $("input[type=file]").attr("data-id");
                     $('#' + id).attr('xlink:href', result);
+                    saveTemplate();
                 }, {type: "POST"}, {
                     cache: false,
                     dataType: 'html',
@@ -320,4 +308,23 @@ function getRequest(url, _data, success_function, params, extraParams) {
         $.extend(parameters, extraParams);
     }
     $.ajax(parameters);
+}
+
+function setAppData(key, val) {
+    localStorage.setItem(key, typeof (val) == 'object' ? JSON.stringify(val) : val);
+}
+
+function getAppData(key, defaultValue, subkey) {
+    var data = localStorage.getItem(key);
+    if ((data != null) && (data.length != 0) && ((data[0] == "{") || (data[0] == "["))) {
+        data = JSON.parse(data);
+        if (typeof (subkey) != "undefined") {
+            data = data[subkey];
+        }
+    }
+    if ((data == null) && ( typeof (defaultValue) != 'undefined')) {
+        return defaultValue;
+    } else {
+        return data;
+    }
 }

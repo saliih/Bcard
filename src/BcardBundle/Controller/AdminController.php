@@ -37,8 +37,8 @@ class AdminController extends Controller
         preg_match( '/width="([^"]*)"/i', file_get_contents($path.$recto), $arraywidth ) ;
         preg_match( '/height="([^"]*)"/i', file_get_contents($path.$recto), $arrayheight ) ;
         $unit = "mm";
-        $height = 55;
-        $width = 85;
+        $height = 61;
+        $width = 91;
         if(isset($arraywidth[1])){
             $width =(float) $arraywidth[1];
             $unit = "pt";
@@ -59,7 +59,7 @@ class AdminController extends Controller
         $pdf->setFontSubsetting(false);
         $pdf->AddPage();
 
-        $pdf->ImageSVG($path .$recto, 0, 0, $width, $height);
+        $pdf->ImageSVG($path .$recto, 3, 3, $width, $height);
         $this->image($pdf,$path .$recto);
         if($verso!="") {
             preg_match( '/width="([^"]*)"/i', file_get_contents($path.$verso), $arraywidth ) ;

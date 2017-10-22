@@ -2,6 +2,10 @@
 {% block javascripts %}
     {{ parent() }}
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="{{ asset('bundles/sonatacore/vendor/components-font-awesome/css/font-awesome.css') }}">
+    <script>
+        window.template = {{ template.id }};
+    </script>
     {% javascripts
     'assetic/js/svg/jquery.svg.js'
     'ressource/js/bootstrap-colorpicker.min.js'
@@ -13,8 +17,8 @@
 {% block stylesheets %}
     {{ parent() }}
     {% for item in template.fonts %}
-    <link href="{{ item.link }}" rel="stylesheet">
-        {% endfor %}
+        <link href="{{ item.link }}" rel="stylesheet">
+    {% endfor %}
     {% stylesheets
     'ressource/css/bootstrap-colorpicker.min.css'
     'ressource/css/costum.css'
@@ -32,37 +36,37 @@
     </div>
 
     <div class="container produit-page">
+
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-1">
+                <form name="uploadfile10" id="uploadfile-background" method="post">
+    <span id="fileselector">
+
+        <label class="btn btn-app btn-file" for="upload-file-selector-background">
+            <input name="upload-file-selector-background" id="upload-file-selector-background" type="file">
+            <i class="fa fa-picture-o"></i> Background
+        </label>
+    </span>
+                </form>
+
 
                 <form name="uploadfile" id="uploadfile" method="post">
     <span id="fileselector">
 
-        <label class="btn btn-sm btn-file btn-success pull-right" for="upload-file-selector">
+        <label class="btn btn-file btn-app" for="upload-file-selector">
             <input name="upload-file-selector" id="upload-file-selector" type="file">
-            <i class="fa_icon icon-upload-alt margin-correction"></i>upload Logo
-        </label>
-    </span>
-                </form>
-                <form name="uploadfile10" id="uploadfile-background" method="post">
-    <span id="fileselector">
-
-        <label class="btn btn-sm btn-file btn-success pull-right" for="upload-file-selector-background">
-            <input name="upload-file-selector-background" id="upload-file-selector-background" type="file">
-            <i class="fa_icon icon-upload-alt margin-correction"></i>upload Background
+            <i class="fa fa-file-image-o"></i> Logo
         </label>
     </span>
                 </form>
 
             </div>
-        </div>
-        <div class="row">
             <div class="col-md-4">
                 <div class="bcard recto">
                     {{ template.recto | convertSVG | raw }}
                 </div>
             </div>
-            <div class="col-md-4 textelementrecto"></div>
+            <div class="col-md-3 textelementrecto"></div>
             <div class="col-md-4 formedition"></div>
         </div>
         {% if template.verso|length>0 %}
@@ -80,7 +84,9 @@
 
         <div class="row">
             <div class="col-md-12">
-                <a href="#fiche_Validation" role="button" data-toggle="modal" class="btn btn-sm btn-success pull-right">Valider</a>
+                <button href="#fiche_Validation" type="submit" data-toggle="modal"
+                        class="btn btn-sm btn-success pull-right">Valider
+                </button>
             </div>
         </div>
     </div>
