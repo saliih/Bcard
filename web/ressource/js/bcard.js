@@ -24,6 +24,10 @@ function saveTemplate(){
     setAppData("localsvg"+window.template,html);
 }
 $(document).ready(function () {
+    var width = $('.recto svg').width() * 1.5;
+    var height = $('.recto svg').height() * 1.5;
+    $('.recto svg').height(height);
+    $('.recto svg').width(width);
     // get from app data
     if(getAppData("localsvg"+window.template)){
         $('.recto').html(getAppData("localsvg"+window.template));
@@ -242,7 +246,15 @@ function eventElements(){
 
         getRequest(Routing.generate('bcard_generate_form'), obj, function (html) {
             $('.formedition').html('').html(html);
-
+            if($('#drop_image').length){
+                $('#drop_image').off().on('click',function (event) {
+                    window.element.remove();
+                    $('.formedition').html('');
+                    saveTemplate();
+                    refreshText();
+                    return false;
+                })
+            }
             $('.colorpicker').colorpicker({format:'hex'}).on('changeColor', function (event) {
                 $('.colorpicker-component .input-group-addon i').attr('style','background:'+$(this).val());
                 changeBlock(event.currentTarget);
