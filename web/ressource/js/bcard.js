@@ -49,7 +49,12 @@ $(document).ready(function () {
         var url = $(this).attr('action');
 
         getRequest(Routing.generate('upload_logo'), data, function (result) {
-            var html = '<g><image height="'+result.width+'" width="'+result.height+'" href="' +result.url+'" x="0" y="0"></image></g>';
+            if(result.type == "svg"){
+
+                var html = '<g><image x="0" y="0" width="' + result.width + '" height="' + result.height + '" xlink:href="' + result.url + '" /></g>';
+            }else {
+                var html = '<g><image height="' + result.width + '" width="' + result.height + '" href="' + result.url + '" x="0" y="0"></image></g>';
+            }
             if($('.recto svg switch g').eq(0).length){
                 $('.recto svg switch g').eq(0).append(html);
             }else{
@@ -95,6 +100,8 @@ $(document).ready(function () {
         var url = $(this).attr('action');
 
         getRequest(Routing.generate('upload_logo'), data, function (result) {
+
+
             var html = '<g><image height="'+$('svg').eq(0).height()+'" width="'+$('svg').eq(0).width()+'" href="' +result.url+'" x="0" y="0"></image></g>';
             if($('.recto svg switch g').eq(0).length){
                 $('.recto svg switch g').eq(0).prepend(html);

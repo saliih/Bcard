@@ -31,15 +31,18 @@ class ModelController extends Controller
             $time
         );
         $filename = $this->getParameter('kernel.root_dir') . "/../web/uploads/" . $time;
+        $html = "";
         if($file->getClientOriginalExtension() == 'svg'){
-            preg_match( '/width="([^"]*)"/i', file_get_contents($filename), $arraywidth ) ;
-            preg_match( '/height="([^"]*)"/i', file_get_contents($filename), $arrayheight ) ;
+            $html = file_get_contents($filename);
+            preg_match( '/width="([^"]*)"/i', $html, $arraywidth ) ;
+            preg_match( '/height="([^"]*)"/i', $html, $arrayheight ) ;
             if(isset($arraywidth[1])){
                 $x =(float) $arraywidth[1];
             }
             if(isset($arrayheight[1])){
                 $y =(float) $arrayheight[1];
             }
+
         }else{
             $info = getimagesize($filename);
             list($x, $y) = $info;
@@ -49,7 +52,7 @@ class ModelController extends Controller
         $type = pathinfo($filename, PATHINFO_EXTENSION);
         $data = file_get_contents($filename);
         //,'base64'=>base64_encode($data)
-        return new JsonResponse(array("type"=>$type,"width"=>$x,"height"=>$y,"url"=>"/bcard/web/uploads/".$time));
+        return new JsonResponse(array("html"=>$html,"type"=>$type,"width"=>$x,"height"=>$y,"url"=>"/bcard/web/uploads/".$time));
         $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
         return new JsonResponse(array('base64'=>$base64,"url"=>$filename));
     }
