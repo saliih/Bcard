@@ -33,9 +33,11 @@ class AdminController extends Controller
          $recto = $invoice->getRecto();
         $verso = $invoice->getVerso();
         $path = $this->get('kernel')->getRootDir() . '/../web/uploads/';
+        $html =   htmlspecialchars_decode(file_get_contents($path.$recto));
+        $html = preg_replace('/(<[^>]+) unicode=".*?"/i', '$1', $html);
 
-        preg_match( '/width="([^"]*)"/i', file_get_contents($path.$recto), $arraywidth ) ;
-        preg_match( '/height="([^"]*)"/i', file_get_contents($path.$recto), $arrayheight ) ;
+        preg_match( '/width="([^"]*)"/i', $html, $arraywidth ) ;
+        preg_match( '/height="([^"]*)"/i', $html, $arrayheight ) ;
         $unit = "mm";
         $height = 61;
         $width = 91;
