@@ -31,8 +31,21 @@ class ModelController extends Controller
             $time
         );
         $filename = $this->getParameter('kernel.root_dir') . "/../web/uploads/" . $time;
-        $info = getimagesize($filename);
-        list($x, $y) = $info;
+        if($file->getClientOriginalExtension() == 'svg'){
+            preg_match( '/width="([^"]*)"/i', file_get_contents($filename), $arraywidth ) ;
+            preg_match( '/height="([^"]*)"/i', file_get_contents($filename), $arrayheight ) ;
+            if(isset($arraywidth[1])){
+                $x =(float) $arraywidth[1];
+            }
+            if(isset($arrayheight[1])){
+                $y =(float) $arrayheight[1];
+            }
+        }else{
+            $info = getimagesize($filename);
+            list($x, $y) = $info;
+        }
+
+
         $type = pathinfo($filename, PATHINFO_EXTENSION);
         $data = file_get_contents($filename);
         //,'base64'=>base64_encode($data)
