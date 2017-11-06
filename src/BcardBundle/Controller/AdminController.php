@@ -53,7 +53,8 @@ class AdminController extends Controller
         print_r(array($height,$width,$unit));
         exit;
 */
-        $pdf = $this->get("white_october.tcpdf")->create('vertical', $unit, array($width, $height), true, 'UTF-8', false);
+        $pdf = $this->get("white_october.tcpdf")
+            ->create('vertical', $unit, array($width, $height), true, 'UTF-8', false);
 
 
         $pdf->SetMargins(40, 0, 40, false);
