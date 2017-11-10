@@ -38,6 +38,9 @@ class AdminController extends Controller
         $html =   htmlspecialchars_decode(file_get_contents($path.$recto));
         $html = preg_replace('/(<p.+?)unicode=".+?"(>.+?)/i', "$1$2", $html);
         $html = str_replace('unicode="<"', "", $html);
+        $html = str_replace('unicode="&"', "", $html);
+        $html = str_replace('unicode="""', "", $html);
+        $html = str_replace('unicode="&nbsp;"', "", $html);
         //$html = preg_replace('/(<[^>]+) unicode=".*?"/i', '$1', $html);
         $html = preg_replace("/<\/?div[^>]*\>/i", "", $html);
         echo $html;exit;
