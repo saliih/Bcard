@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 class AdminController extends Controller
 {
     private function stripAttributes($html,$attribs) {
-        $dom = new simple_html_dom();
+        $dom = new \simple_html_dom();
         $dom->load($html);
         foreach($attribs as $attrib)
             foreach($dom->find("*[$attrib]") as $e)
