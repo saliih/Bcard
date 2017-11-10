@@ -74,14 +74,14 @@ class AdminController extends Controller
             $pdf = $this->get("white_october.tcpdf")
                 ->create('vertical', $unit, array($width, $height), true, 'UTF-8', false);
 
-            $pdf->SetMargins(40, 0, 40, false);
-            $pdf->SetAutoPageBreak(true, 0);
+            $pdf->SetMargins(0, 0, 0, false);
+            $pdf->SetAutoPageBreak(false, 0);
             $pdf->setFontSubsetting(false);
             //$pdf->AddPage();
 
             $pdf->ImageSVG($path."toexport/".$id.".svg", 3, 3, $width, $height);
             //   $this->image($pdf,$path .$recto);
-            if($verso!="") {
+            /*if($verso!="") {
                 preg_match( '/width="([^"]*)"/i', file_get_contents($path.$verso), $arraywidth ) ;
                 preg_match( '/width="([^"]*)"/i', file_get_contents($path.$verso), $arrayheight ) ;
                 $height = 55;
@@ -97,7 +97,7 @@ class AdminController extends Controller
 
                 $pdf->ImageSVG($path . $verso, 0, 0, $width, $height, '','', '', 0, true);
                 $this->image($pdf,$path .$verso);
-            }
+            }*/
             $filename = 'caret_visite';
             $pdf->Output($filename . ".pdf", 'I'); // This will output the PDF as a response directly
 
