@@ -35,7 +35,7 @@ class AdminController extends Controller
         $verso = $invoice->getVerso();
         $path = $this->get('kernel')->getRootDir() . '/../web/uploads/';
         $html =   htmlspecialchars_decode(file_get_contents($path.$recto));
-       // $html = preg_replace('/(<[^>]+) unicode=".*?"/i', '$1', $html);
+        $html = preg_replace('/(<[^>]+) unicode=".*?"/i', '$1', $html);
         $html = preg_replace("/<\/?div[^>]*\>/i", "", $html);
         // echo $html;exit;
         file_put_contents($path."toexport/".$id.".svg",$html);
