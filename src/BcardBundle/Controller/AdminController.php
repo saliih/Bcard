@@ -74,10 +74,10 @@ class AdminController extends Controller
             $pdf = $this->get("white_october.tcpdf")
                 ->create('vertical', $unit, array($width, $height), true, 'UTF-8', false);
 
-            $pdf->SetMargins(90, 0, 90, false);
+            $pdf->SetMargins(190, 0, 190, false);
             $pdf->SetAutoPageBreak(true, 0);
             $pdf->setFontSubsetting(false);
-            //$pdf->AddPage();
+            $pdf->AddPage();
 
             $pdf->ImageSVG($path."toexport/".$id.".svg", 3, 3, $width, $height);
             //   $this->image($pdf,$path .$recto);
