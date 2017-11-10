@@ -37,6 +37,7 @@ class AdminController extends Controller
         $path = $this->get('kernel')->getRootDir() . '/../web/uploads/';
         $html =   htmlspecialchars_decode(file_get_contents($path.$recto));
         $html = preg_replace('/(<p.+?)unicode=".+?"(>.+?)/i', "$1$2", $html);
+        $html = str_replace('unicode="<"', "", $html);
         //$html = preg_replace('/(<[^>]+) unicode=".*?"/i', '$1', $html);
         $html = preg_replace("/<\/?div[^>]*\>/i", "", $html);
         // echo $html;exit;
