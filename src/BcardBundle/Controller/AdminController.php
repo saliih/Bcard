@@ -76,7 +76,7 @@ class AdminController extends Controller
             $pdf = $this->get("white_october.tcpdf")
                 ->create('vertical', $unit, array($width, $height), true, 'UTF-8', false);
 
-            $pdf->SetMargins(590, 0, 0, false);
+            $pdf->SetMargins(40, 0, 40, false);
             $pdf->SetAutoPageBreak(true, 0);
             $pdf->setFontSubsetting(false);
             $pdf->AddPage();
