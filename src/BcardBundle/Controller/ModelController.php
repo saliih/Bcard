@@ -52,9 +52,9 @@ class ModelController extends Controller
         $type = pathinfo($filename, PATHINFO_EXTENSION);
         $data = file_get_contents($filename);
         //,'base64'=>base64_encode($data)
-        return new JsonResponse(array("html"=>$html,"type"=>$type,"width"=>$x,"height"=>$y,"url"=>"/uploads/".$time));
+        //return new JsonResponse(array("html"=>$html,"type"=>$type,"width"=>$x,"height"=>$y,"url"=>"/uploads/".$time));
         $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
-        return new JsonResponse(array('base64'=>$base64,"url"=>$filename));
+        return new JsonResponse(array("html"=>$html,"type"=>$type,"width"=>$x,"height"=>$y,"url"=>"/uploads/".$time,'base64'=>$base64,"url"=>$filename));
     }
 
     public function submitInvoiceAction(Request $request){
