@@ -44,7 +44,7 @@ class AdminController extends Controller
             $html = str_replace('unicode="&"', "", $html);
             $html = str_replace('unicode="""', "", $html);
             $html = str_replace('unicode="&nbsp;"', "", $html);
-            $html = str_replace('href="/', 'href="'.$path, $html);
+            $html = str_replace('href="/', 'href="http://www.yasmine-press.com/', $html);
             //$html = preg_replace('/(<[^>]+) unicode=".*?"/i', '$1', $html);
             $html = preg_replace("/<\/?div[^>]*\>/i", "", $html);
            //echo $html;exit;
