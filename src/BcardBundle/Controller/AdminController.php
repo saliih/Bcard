@@ -77,7 +77,7 @@ class AdminController extends Controller
             $pdf->SetMargins(40, 0, 40, false);
             $pdf->SetAutoPageBreak(true, 0);
             $pdf->setFontSubsetting(false);
-            $pdf->AddPage();
+            //$pdf->AddPage();
 
             $pdf->ImageSVG($path."toexport/".$id.".svg", 3, 3, $width, $height);
             //   $this->image($pdf,$path .$recto);
