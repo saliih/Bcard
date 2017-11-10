@@ -98,16 +98,17 @@ class Template
             $fs->mkdir($target_path, 0777);
         }
         $suffix = "";
-
         Switch($type){
             case 'recto':
                 while (true) {
-                    $target_filename = pathinfo($this->getUploadedFileRecto()->getClientOriginalName(), PATHINFO_FILENAME) . $suffix . "." . $this->getUploadedFileRecto()->getClientOriginalExtension();
+                    $originalname = str_replace(" ","",$this->getUploadedFileRecto()->getClientOriginalName());
+                    $target_filename = pathinfo($originalname, PATHINFO_FILENAME) . $suffix . "." . $this->getUploadedFileRecto()->getClientOriginalExtension();
                     if (!file_exists($target_path . "/" . $target_filename)) {
                         break;
                     }
                     $suffix += 1;
                 }
+
                 $this->getUploadedFileRecto()->move(
                     $target_path,
                     $target_filename
@@ -126,7 +127,8 @@ class Template
                 break;
             case "verso":
                 while (true) {
-                    $target_filename = pathinfo($this->getUploadedFileVerso()->getClientOriginalName(), PATHINFO_FILENAME) . $suffix . "." . $this->getUploadedFileVerso()->getClientOriginalExtension();
+                    $originalname = str_replace(" ","",$this->getUploadedFileVerso()->getClientOriginalName());
+                    $target_filename = pathinfo($originalname, PATHINFO_FILENAME) . $suffix . "." . $this->getUploadedFileVerso()->getClientOriginalExtension();
                     if (!file_exists($target_path . "/" . $target_filename)) {
                         break;
                     }
@@ -140,7 +142,8 @@ class Template
                 break;
             default:
                 while (true) {
-                    $target_filename = pathinfo($this->getUploadedFile()->getClientOriginalName(), PATHINFO_FILENAME) . $suffix . "." . $this->getUploadedFile()->getClientOriginalExtension();
+                    $originalname = str_replace(" ","",$this->getUploadedFile()->getClientOriginalName());
+                    $target_filename = pathinfo($originalname, PATHINFO_FILENAME) . $suffix . "." . $this->getUploadedFile()->getClientOriginalExtension();
                     if (!file_exists($target_path . "/" . $target_filename)) {
                         break;
                     }

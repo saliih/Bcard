@@ -24,6 +24,14 @@ function saveTemplate(){
     setAppData("localsvg"+window.template,html);
 }
 $(document).ready(function () {
+    //validation bt
+
+    $('#validationModal').on('click',function () {
+       $('#fiche_Validation').modal();
+    });
+
+
+
     var width = $('.recto svg').width() * 1.5;
     var height = $('.recto svg').height() * 1.5;
     $('.recto svg').height(height);
@@ -49,11 +57,13 @@ $(document).ready(function () {
         var url = $(this).attr('action');
 
         getRequest(Routing.generate('upload_logo'), data, function (result) {
+            var x1 = 259/2 - result.width/2;
+            var y1 = 145 / 2 - result.height/2;
             if(result.type == "svg"){
 
-                var html = '<g><image x="0" y="0" width="' + result.width + '" height="' + result.height + '" xlink:href="' + result.url + '" /></g>';
+                var html = '<g><image  x="'+x1+'" y="'+y1+'" width="' + result.width + '" height="' + result.height + '" xlink:href="' + result.url + '" /></g>';
             }else {
-                var html = '<g><image height="' + result.width + '" width="' + result.height + '" href="' + result.url + '" x="0" y="0"></image></g>';
+                var html = '<g><image height="' + result.width + '" width="' + result.height + '" href="' + result.url + '" x="'+x1+'" y="'+y1+'"></image></g>';
             }
             if($('.recto svg switch g').eq(0).length){
                 $('.recto svg switch g').eq(0).append(html);
@@ -100,9 +110,10 @@ $(document).ready(function () {
         var url = $(this).attr('action');
 
         getRequest(Routing.generate('upload_logo'), data, function (result) {
-
-
-            var html = '<g><image height="'+$('svg').eq(0).height()+'" width="'+$('svg').eq(0).width()+'" href="' +result.url+'" x="0" y="0"></image></g>';
+debugger;
+            var x1 = 259/2 - result.width/2;
+            var y1 = 145 / 2 - result.height/2;
+            var html = '<g><image height="'+$('svg').eq(0).height()+'" width="'+$('svg').eq(0).width()+'" href="' +result.url+'"  x="'+x1+'" y="'+y1+'"></image></g>';
             if($('.recto svg switch g').eq(0).length){
                 $('.recto svg switch g').eq(0).prepend(html);
             }else{

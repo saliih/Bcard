@@ -5,6 +5,7 @@ namespace BcardBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class AdminController extends Controller
 {
@@ -34,8 +35,15 @@ class AdminController extends Controller
         $verso = $invoice->getVerso();
         $path = $this->get('kernel')->getRootDir() . '/../web/uploads/';
         $html =   htmlspecialchars_decode(file_get_contents($path.$recto));
-        $html = preg_replace('/(<[^>]+) unicode=".*?"/i', '$1', $html);
+       // $html = preg_replace('/(<[^>]+) unicode=".*?"/i', '$1', $html);
+        $html = preg_replace("/<\/?div[^>]*\>/i", "", $html);
+        // echo $html;exit;
+        file_put_contents($path."toexport/".$id.".svg");
+        exec("inkscape ".$path.$recto." --export-pdf=".$path."toexport/".$id.".pdf");
+        return new BinaryFileResponse($path."toexport/".$id.".pdf");
 
+
+        exit;
         preg_match( '/width="([^"]*)"/i', $html, $arraywidth ) ;
         preg_match( '/height="([^"]*)"/i', $html, $arrayheight ) ;
         $unit = "mm";
@@ -56,14 +64,17 @@ class AdminController extends Controller
         $pdf = $this->get("white_october.tcpdf")
             ->create('vertical', $unit, array($width, $height), true, 'UTF-8', false);
 
+        $fontname = $pdf->addTTFfont($this->get('kernel')->getRootDir() . '/../web/FreeSerifItalic.ttf', 'TrueTypeUnicode', '', 96);
 
+// use the font
+        $pdf->SetFont($fontname, '', 14, '', false);
         $pdf->SetMargins(40, 0, 40, false);
         $pdf->SetAutoPageBreak(true, 0);
         $pdf->setFontSubsetting(false);
         $pdf->AddPage();
 
         $pdf->ImageSVG($path .$recto, 3, 3, $width, $height);
-        $this->image($pdf,$path .$recto);
+     //   $this->image($pdf,$path .$recto);
         if($verso!="") {
             preg_match( '/width="([^"]*)"/i', file_get_contents($path.$verso), $arraywidth ) ;
             preg_match( '/width="([^"]*)"/i', file_get_contents($path.$verso), $arrayheight ) ;
