@@ -63,7 +63,7 @@ $(document).ready(function () {
 
                 var html = '<g><image  x="'+x1+'" y="'+y1+'" width="' + result.width + '" height="' + result.height + '" xlink:href="' + result.url + '" /></g>';
             }else {
-                var html = '<g><image height="' + result.width + '" width="' + result.height + '" xlink:href="' + result.xlink:href + '" x="'+x1+'" y="'+y1+'"></image></g>';
+                var html = '<g><image height="' + result.width + '" width="' + result.height + '" xlink:href="' + result.base64 + '" x="'+x1+'" y="'+y1+'"></image></g>';
             }
             if($('.recto svg switch g').eq(0).length){
                 $('.recto svg switch g').eq(0).append(html);
