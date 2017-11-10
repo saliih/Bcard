@@ -9,15 +9,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class AdminController extends Controller
 {
-    private function stripAttributes($html,$attribs) {
-        $dom = new \simple_html_dom();
-        $dom->load($html);
-        foreach($attribs as $attrib)
-            foreach($dom->find("*[$attrib]") as $e)
-                $e->$attrib = null;
-        $dom->load($dom->save());
-        return $dom->save();
-    }
+
     public function deletePictAction(Request $request, $id){
         $em = $this->getDoctrine()->getManager();
         $template = $this->getDoctrine()->getRepository('BcardBundle:Template')->find($id);
@@ -44,7 +36,7 @@ class AdminController extends Controller
         $verso = $invoice->getVerso();
         $path = $this->get('kernel')->getRootDir() . '/../web/uploads/';
         $html =   htmlspecialchars_decode(file_get_contents($path.$recto));
-        $html = $this->stripAttributes($html,"unicode");
+        $html = preg_replace('/(<p.+?)unicode=".+?"(>.+?)/i', "$1$2", $html);
         //$html = preg_replace('/(<[^>]+) unicode=".*?"/i', '$1', $html);
         $html = preg_replace("/<\/?div[^>]*\>/i", "", $html);
         // echo $html;exit;
