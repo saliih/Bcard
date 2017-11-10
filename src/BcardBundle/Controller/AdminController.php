@@ -48,12 +48,12 @@ class AdminController extends Controller
             //echo $html;exit;
             file_put_contents($path."toexport/".$id.".svg",$html);
     //echo "inkscape ".$path.$recto." --export-pdf=".$path."toexport/".$id.".pdf";exit;
-            exec("inkscape ".$path.$recto." --export-pdf=".$path."toexport/".$id.".pdf", $output, $return_var);
+           /* exec("inkscape ".$path.$recto." --export-pdf=".$path."toexport/".$id.".pdf", $output, $return_var);
     //echo "<pre>";print_r($output);print_r($return_var);exit;
             return new BinaryFileResponse($path."toexport/".$id.".pdf");
 
 
-            exit;
+            exit;*/
             preg_match( '/width="([^"]*)"/i', $html, $arraywidth ) ;
             preg_match( '/height="([^"]*)"/i', $html, $arrayheight ) ;
             $unit = "mm";
@@ -79,7 +79,7 @@ class AdminController extends Controller
             $pdf->setFontSubsetting(false);
             $pdf->AddPage();
 
-            $pdf->ImageSVG($path .$recto, 3, 3, $width, $height);
+            $pdf->ImageSVG($path."toexport/".$id.".svg", 3, 3, $width, $height);
             //   $this->image($pdf,$path .$recto);
             if($verso!="") {
                 preg_match( '/width="([^"]*)"/i', file_get_contents($path.$verso), $arraywidth ) ;
