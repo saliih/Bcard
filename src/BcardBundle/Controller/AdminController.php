@@ -80,7 +80,7 @@ class AdminController extends Controller
             $pdf->SetAutoPageBreak(true, 0);
             $pdf->setFontSubsetting(false);
             $pdf->AddPage();
-            $pdf->writeHTML("<img src='data:image/$ext;base64,$image'>");
+            $pdf->writeHTML($html);
 
            //$pdf->ImageSVG($path."toexport/".$id.".svg", 3, 3, $width, $height);
             //   $this->image($pdf,$path .$recto);
