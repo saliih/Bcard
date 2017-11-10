@@ -41,7 +41,7 @@ class AdminController extends Controller
         file_put_contents($path."toexport/".$id.".svg",$html);
 
         exec("inkscape ".$path.$recto." --export-pdf=".$path."toexport/".$id.".pdf", $output, $return_var);
-echo "<pre>";print_r($output);print_r($return_var);exit;
+//echo "<pre>";print_r($output);print_r($return_var);exit;
         return new BinaryFileResponse($path."toexport/".$id.".pdf");
 
 
