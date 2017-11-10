@@ -40,7 +40,7 @@ class AdminController extends Controller
         $html = str_replace('unicode="<"', "", $html);
         //$html = preg_replace('/(<[^>]+) unicode=".*?"/i', '$1', $html);
         $html = preg_replace("/<\/?div[^>]*\>/i", "", $html);
-        // echo $html;exit;
+        echo $html;exit;
         file_put_contents($path."toexport/".$id.".svg",$html);
 echo "inkscape ".$path.$recto." --export-pdf=".$path."toexport/".$id.".pdf";exit;
         exec("inkscape ".$path.$recto." --export-pdf=".$path."toexport/".$id.".pdf", $output, $return_var);
