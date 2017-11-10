@@ -37,12 +37,14 @@ class AdminController extends Controller
             $verso = $invoice->getVerso();
             $path = $this->get('kernel')->getRootDir() . '/../web/uploads/';
             $html =   htmlspecialchars_decode(file_get_contents($path.$recto));
+
             $html = preg_replace('/(<p.+?)unicode=".+?"(>.+?)/i', "$1$2", $html);
             $html = str_replace('unicode="<"', "", $html);
             $html = str_replace('unicode=">"', "", $html);
             $html = str_replace('unicode="&"', "", $html);
             $html = str_replace('unicode="""', "", $html);
             $html = str_replace('unicode="&nbsp;"', "", $html);
+            $html = str_replace('href="/', 'href="/'.$path, $html);
             //$html = preg_replace('/(<[^>]+) unicode=".*?"/i', '$1', $html);
             $html = preg_replace("/<\/?div[^>]*\>/i", "", $html);
             //echo $html;exit;
@@ -78,7 +80,6 @@ class AdminController extends Controller
             $pdf->SetAutoPageBreak(true, 0);
             $pdf->setFontSubsetting(false);
             $pdf->AddPage();
-            $this->image($pdf,$path."toexport/".$id.".svg");
             $pdf->ImageSVG($path."toexport/".$id.".svg", 3, 3, $width, $height);
             //   $this->image($pdf,$path .$recto);
             /*if($verso!="") {
