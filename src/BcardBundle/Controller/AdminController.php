@@ -118,8 +118,8 @@ class AdminController extends Controller
             }
             //echo "<pre>";print_r($images);
            // echo '/var/www'.$images['href'];exit;
-            $pdf->Image('/var/www'.$images['href'],(int) $images['x'],10,$images['width'],$images['height']);
-            //$pdf->Image($this->get('kernel')->getRootDir() . '/../web'.substr($images['href'],1,-1),($images['x']/4.16),($images['y']/4.16),$images['width'],$images['height']);
+            //$pdf->Image('/var/www'.$images['href'],(int) $images['x'],10,$images['width'],$images['height']);
+            $pdf->Image($this->get('kernel')->getRootDir() . '/../web'.substr($images['href'],1,-1),($images['x']/4.16),($images['y']/4.16),$images['width'],$images['height']);
 
         }
 
