@@ -25,8 +25,11 @@ function saveTemplate(){
 }
 $(document).ready(function () {
     //validation bt
-
+    $('body :not(svg)').on('click',function () {
+        $('svg [style]').removeAttr('style');
+    });
     $('#validationModal').on('click',function () {
+        $('svg [style]').removeAttr('style');
        $('#fiche_Validation').modal();
     });
 
@@ -199,6 +202,9 @@ function changeBlock(input) {
 }
 function eventElements(){
     $(document).off().on('click','polyline, polygon, line ,ellipse, rect, image, text, circle, path', function (event) {
+        if(typeof window.element != "undefined") {
+            window.element.removeAttr('style');
+        }
         $('.formedition').css('display', 'block');
         var obj = {};
         if ($(this).is('rect') || $(this).is('polyline') || $(this).is('polygon') || $(this).is('line') || $(this).is('ellipse') || $(this).is('circle') ) {
@@ -261,8 +267,9 @@ function eventElements(){
             }
         }
         window.element = $(this);
-
+        window.element.attr('style',' stroke:#ffff00;');
         getRequest(Routing.generate('bcard_generate_form'), obj, function (html) {
+
             $('.formedition').html('').html(html);
             if($('#drop_image').length){
                 $('#drop_image').off().on('click',function (event) {
